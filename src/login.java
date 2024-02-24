@@ -39,8 +39,8 @@ public class login extends JFrame{
                 String password = new String(contrasenia.getPassword());
 
                 if (validarCredenciales(nombreUsuario, password)) {
-                    JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso");
-                    // Agrega aquí la lógica para lo que deseas hacer después del inicio de sesión exitoso
+                    PELICULAS pantalla = new PELICULAS();
+
                 } else {
                     JOptionPane.showMessageDialog(null, "Nombre de usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
                 }
