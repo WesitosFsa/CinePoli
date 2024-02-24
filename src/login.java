@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.*;
 
 public class login extends JFrame{
     private JPanel panel1;
@@ -34,7 +35,15 @@ public class login extends JFrame{
         Ingresar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String nombreUsuario = nombre.getText();
+                String password = new String(contrasenia.getPassword());
 
+                if (validarCredenciales(nombreUsuario, password)) {
+                    JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso");
+                    // Agrega aquí la lógica para lo que deseas hacer después del inicio de sesión exitoso
+                } else {
+                    JOptionPane.showMessageDialog(null, "Nombre de usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
         registrarse.addActionListener(new ActionListener() {
@@ -59,5 +68,39 @@ public class login extends JFrame{
                 }
             }
         });
+    }
+    private boolean validarCredenciales(String nombreUsuario, String password) {
+        // Lógica para validar las credenciales en la base de datos
+        Connection conexion = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            Main main = new Main();
+            // Establecer conexión
+            conexion = main.establecerConexion();
+
+            // Consulta SQL para verificar las credenciales
+            String consulta = "SELECT * FROM clientes WHERE nom_usuario = ? AND contra_usuario = ?";
+            preparedStatement = conexion.prepareStatement(consulta);
+            preparedStatement.setString(1, nombreUsuario);
+            preparedStatement.setString(2, password);
+            resultSet = preparedStatement.executeQuery();
+
+            // Si se encuentra algún resultado, las credenciales son válidas
+            return resultSet.next();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        } finally {
+            try {
+                // Cerrar recursos
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (conexion != null) conexion.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }
