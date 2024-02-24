@@ -15,6 +15,9 @@ public class PELICULAS {
     private JLabel PELI6;
 
     public PELICULAS() {
+        /**Peliculas quemadas del momento
+         * UwU
+         */
         PELI1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
