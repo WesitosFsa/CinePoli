@@ -25,8 +25,8 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <font name="Berlin Sans FB Demi" size="26"/>
-              <foreground color="-16777216"/>
+              <font name="Century Gothic" size="20" style="1"/>
+              <foreground color="-1118482"/>
               <text value="Estadisticas Cine Politecnica"/>
             </properties>
           </component>

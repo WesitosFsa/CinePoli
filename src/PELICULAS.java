@@ -5,7 +5,7 @@ import java.awt.event.*;
 /**Comentario sobre cartelera
  * imagenes en el programa
  */
-public class PELICULAS {
+public class PELICULAS extends JFrame{
     private JPanel PELICULAS;
     private JLabel PELI1;
     private JLabel PELI2;
@@ -18,6 +18,14 @@ public class PELICULAS {
         /**Peliculas quemadas del momento
          * UwU
          */
+        super("Reservas");
+        setContentPane(PELICULAS);
+        setSize(800, 500);
+        setResizable(false);
+        setLocationRelativeTo(null);
+        setUndecorated(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
         PELI1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -63,11 +71,7 @@ public class PELICULAS {
 
         // Agrega MouseListeners a los demás JLabels de manera similar para mostrar el cuadro de diálogo correspondiente
 
-        JFrame frame = new JFrame("PELICULAS");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setContentPane(PELICULAS);
-        frame.pack();
-        frame.setVisible(true);
+
     }
 
     private void mostrarDialogo(String titulo, String informacion) {
