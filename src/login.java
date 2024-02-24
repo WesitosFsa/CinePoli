@@ -40,10 +40,10 @@ public class login extends JFrame{
         registrarse.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                /*registro registro = new registro();
+                registro registro = new registro();
                 registro.setVisible(true);
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(panel1);
-                frame.dispose();*/
+                frame.dispose();
             }
         });
         salir.addActionListener(new ActionListener() {
