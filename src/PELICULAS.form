@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="PELICULAS">
+  <grid id="27dc6" binding="PELICULAS" layout-manager="GridLayoutManager" row-count="14" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="939" height="1032"/>
+    </constraints>
+    <properties>
+      <background color="-878262"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="7a80b" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="4" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-15000288"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="a2599" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Consolas" size="40" style="1"/>
+              <foreground color="-1"/>
+              <text value="CARTELERA"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <scrollpane id="2e545">
+        <constraints>
+          <grid row="1" column="0" row-span="13" col-span="4" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="1061f" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="3c1bc" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <icon value="img/Captura de pantalla 2024-02-24 142910.png"/>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="f5be9" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <icon value="img/Captura de pantalla 2024-02-24 142941.png"/>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="c14dc" class="javax.swing.JLabel" binding="PELI3">
+                <constraints>
+                  <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Consolas" style="1"/>
+                  <foreground color="-16777216"/>
+                  <text value="YO CAPITAN"/>
+                </properties>
+              </component>
+              <component id="e7544" class="javax.swing.JLabel" binding="PELI2">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Consolas" style="1"/>
+                  <foreground color="-16777216"/>
+                  <text value="FERRARI"/>
+                </properties>
+              </component>
+              <component id="64bb2" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <icon value="img/Captura de pantalla 2024-02-24 143025.png"/>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="b0e10" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <icon value="img/Captura de pantalla 2024-02-24 143045.png"/>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="f92b9" class="javax.swing.JLabel" binding="PELI5">
+                <constraints>
+                  <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Consolas" style="1"/>
+                  <foreground color="-16777216"/>
+                  <text value="VIDAS PASADAS"/>
+                </properties>
+              </component>
+              <component id="f56db" class="javax.swing.JLabel" binding="PELI6">
+                <constraints>
+                  <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Consolas" style="1"/>
+                  <foreground color="-16777216"/>
+                  <text value="WONKA"/>
+                </properties>
+              </component>
+              <component id="137c1" class="javax.swing.JLabel" binding="PELI1">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Consolas" style="1"/>
+                  <foreground color="-16777216"/>
+                  <text value="KIMETSU NO YAIBA CLAMOR DE LA VICTURIA"/>
+                </properties>
+              </component>
+              <component id="149cc" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <icon value="img/Captura de pantalla 2024-02-24 143005.png"/>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="4300d" class="javax.swing.JLabel" binding="PELI4">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Consolas" style="1"/>
+                  <foreground color="-16777216"/>
+                  <text value="DUNA 2"/>
+                </properties>
+              </component>
+              <component id="c4c53" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <icon value="img/Captura de pantalla 2024-02-24 122932.png"/>
+                  <text value=""/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </scrollpane>
+    </children>
+  </grid>
+</form>
