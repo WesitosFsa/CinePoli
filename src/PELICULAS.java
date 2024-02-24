@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**Comentario sobre cartelera
+ * imagenes en el programa
+ */
 public class PELICULAS {
     private JPanel PELICULAS;
     private JLabel PELI1;
