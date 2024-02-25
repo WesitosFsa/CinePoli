@@ -7,7 +7,7 @@ public class Main {
     Connection establecerConexion() throws SQLException {
         String url = "jdbc:mysql://localhost:3306/cinefilo";
         String usuarioDB = "root";
-        String contraseniaDB = "123456";
+        String contraseniaDB = "123456mm";
         return DriverManager.getConnection(url, usuarioDB, contraseniaDB);
     }
     public static void main(String[] args) {
