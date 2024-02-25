@@ -1,23 +1,64 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class DATOS extends JFrame{
+public class DATOS extends JFrame {
     private JPanel DATOS;
     private JButton salirButton;
     private JButton reservarAsientoButton;
-    private JTextArea textArea1;
     private JTable table1;
-    private JTextArea textArea2;
+    private JScrollPane Info_pel;
+    private JTextArea sinopsis;
+    private JLabel director;
+    private JLabel anho;
+    private JLabel genero;
+    private JLabel titulo;
+    private JLabel clasificacion;
+    private JLabel labelimagen;
+    private String nombrePelicula;
+    private String generoPelicula;
+    private String directorPelicula;
+    private String anhoPelicula;
+    private ImageIcon imagenPelicula;
+    private String sinopses;
+    private String clasificacions;
 
-    public DATOS() {
+    public DATOS(String sinopses,String nombrePelicula, String generoPelicula, String directorPelicula, String anhoPelicula, ImageIcon imagenPelicula,String clasificacions){
+        this.sinopses = sinopses;
+        this.nombrePelicula = nombrePelicula;
+        this.generoPelicula = generoPelicula;
+        this.directorPelicula = directorPelicula;
+        this.anhoPelicula = anhoPelicula;
+        this.imagenPelicula = imagenPelicula;
         setContentPane(DATOS);
         setSize(800, 500);
         setResizable(false);
         setLocationRelativeTo(null);
         setUndecorated(true);
-        setVisible(true);
 
+        // Establece la política de la barra de desplazamiento vertical aquí
+        setVisible(true);
+        titulo.setText(nombrePelicula);
+        genero.setText(generoPelicula);
+        director.setText(directorPelicula);
+        anho.setText(anhoPelicula);
+        labelimagen.setIcon(imagenPelicula);
+        sinopsis.setText(sinopses);
+        clasificacion.setText(clasificacions);
+
+        // ActionListener para el botón "Salir"
+        salirButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PELICULAS pelis = new PELICULAS();
+                pelis.setVisible(true);
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(DATOS);
+                frame.dispose();
+            }
+        });
+
+        // ActionListener para el botón "Reservar Asiento"
         reservarAsientoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -27,23 +68,5 @@ public class DATOS extends JFrame{
                 frame.dispose();
             }
         });
-
-
-        // Añade la información al JTextArea1
-        textArea1.append("La nueva película de Kimetsu no Yaiba, titulada “Kimetsu no Yaiba - To the Hashira Training”, \nproyectará por primera vez en cines el episodio 11 del Arco de la Aldea de los Herreros, \nmostrando así la conclusión de la feroz batalla entre Tanjiro y la Cuarta Luna Creciente, \nHatengu, además de cómo Nezuko logra caminar bajo el sol.");
-        textArea1.append("Le seguirá el \nepisodio 1 del Arco del Entrenamiento de los Pilares, donde veremos el inicio del entrenamiento \nde los Pilares para prepararse de cara a la próxima batalla contra Muzan Kibutsuji.\n");
-
-        // Añade el horario de películas al JTextArea2
-        salirButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                PELICULAS pelis = new PELICULAS();
-                pelis.setVisible(true);
-                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(DATOS);
-                frame.dispose();
-
-            }
-        });
     }
-
 }

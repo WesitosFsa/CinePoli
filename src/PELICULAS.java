@@ -102,10 +102,16 @@ public class PELICULAS extends JFrame {
         botonTitulo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Abrir el panel registro
-                DATOS DATOS = new DATOS();
-                DATOS.setVisible(true);
-
+                String nombrePeliculaBoton = ((JButton)e.getSource()).getText();
+                // Obtener los datos de la película
+                String sinopsisPelicula = obtenersinopsis(nombrePeliculaBoton);
+                String generoPelicula = obtenergenero(nombrePeliculaBoton);
+                String directorPelicula = obtenerdirector(nombrePeliculaBoton);
+                String anhopelicula = obteneranho(nombrePeliculaBoton);
+                String clasificacion = obtenerclasificacion(nombrePeliculaBoton);
+                // Crear un objeto DATOS y pasar los datos de la película al constructor
+                DATOS datos = new DATOS(sinopsisPelicula, titulo, generoPelicula,directorPelicula, anhopelicula, imagen,clasificacion);
+                datos.setVisible(true);
                 // Cerrar el panel PELICULAS
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(PELICULAS);
                 frame.dispose();
@@ -122,8 +128,6 @@ public class PELICULAS extends JFrame {
         revalidate(); // Revalidar el layout del contenedor
         repaint();   // Volver a pintar los componentes
     }
-
-
     private void establecerConexion() {
         try {
             Main conexionbd = new Main();
@@ -133,6 +137,224 @@ public class PELICULAS extends JFrame {
             JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+    private String obtenerclasificacion(String nombrePelicula) {
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
+        try {
+            // Preparar la consulta SQL con un filtro por nombre de película
+            String sql = "SELECT clasificacion FROM peliculas WHERE nombre_pelicula = ?";
+            statement = conexion.prepareStatement(sql);
+            statement.setString(1, nombrePelicula); // Establecer el nombre de la película como parámetro
+
+            // Ejecutar la consulta y obtener el resultado
+            resultSet = statement.executeQuery();
+
+            // Verificar si hay resultados
+            if (resultSet.next()) {
+                // Obtener la sinopsis de la película desde la columna 'sinopsis'
+                String clasificacionPelicula = resultSet.getString("clasificacion");
+                return clasificacionPelicula;
+            } else {
+                // Si no hay resultados, devolver un mensaje indicando que la película no fue encontrada
+                return "La película '" + nombrePelicula + "' no fue encontrada en la base de datos.";
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al obtener información de la película desde la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        } finally {
+            // Cerrar recursos
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+    private String obtenergenero(String nombrePelicula) {
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
+        try {
+            // Preparar la consulta SQL con un filtro por nombre de película
+            String sql = "SELECT genero FROM peliculas WHERE nombre_pelicula = ?";
+            statement = conexion.prepareStatement(sql);
+            statement.setString(1, nombrePelicula); // Establecer el nombre de la película como parámetro
+
+            // Ejecutar la consulta y obtener el resultado
+            resultSet = statement.executeQuery();
+
+            // Verificar si hay resultados
+            if (resultSet.next()) {
+                // Obtener la sinopsis de la película desde la columna 'sinopsis'
+                String generoPelicula = resultSet.getString("genero");
+                return generoPelicula;
+            } else {
+                // Si no hay resultados, devolver un mensaje indicando que la película no fue encontrada
+                return "La película '" + nombrePelicula + "' no fue encontrada en la base de datos.";
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al obtener información de la película desde la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        } finally {
+            // Cerrar recursos
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+    private String obteneranho(String nombrePelicula) {
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
+        try {
+            // Preparar la consulta SQL con un filtro por nombre de película
+            String sql = "SELECT anho FROM peliculas WHERE nombre_pelicula = ?";
+            statement = conexion.prepareStatement(sql);
+            statement.setString(1, nombrePelicula); // Establecer el nombre de la película como parámetro
+
+            // Ejecutar la consulta y obtener el resultado
+            resultSet = statement.executeQuery();
+
+            // Verificar si hay resultados
+            if (resultSet.next()) {
+                // Obtener la sinopsis de la película desde la columna 'sinopsis'
+                String anho = resultSet.getString("anho");
+                return anho;
+            } else {
+                // Si no hay resultados, devolver un mensaje indicando que la película no fue encontrada
+                return "La película '" + nombrePelicula + "' no fue encontrada en la base de datos.";
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al obtener información de la película desde la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        } finally {
+            // Cerrar recursos
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+    private String obtenersinopsis(String nombrePelicula) {
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
+        try {
+            // Preparar la consulta SQL con un filtro por nombre de película
+            String sql = "SELECT sinopsis FROM peliculas WHERE nombre_pelicula = ?";
+            statement = conexion.prepareStatement(sql);
+            statement.setString(1, nombrePelicula); // Establecer el nombre de la película como parámetro
+
+            // Ejecutar la consulta y obtener el resultado
+            resultSet = statement.executeQuery();
+
+            // Verificar si hay resultados
+            if (resultSet.next()) {
+                // Obtener la sinopsis de la película desde la columna 'sinopsis'
+                String sinopsisPelicula = resultSet.getString("sinopsis");
+                String sinopsisConSaltos = agregarSaltosDeLinea(sinopsisPelicula);
+                return sinopsisConSaltos;
+            } else {
+                // Si no hay resultados, devolver un mensaje indicando que la película no fue encontrada
+                return "La película '" + nombrePelicula + "' no fue encontrada en la base de datos.";
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al obtener información de la película desde la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        } finally {
+            // Cerrar recursos
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+    private String obtenerdirector(String nombrePelicula) {
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
+        try {
+            // Preparar la consulta SQL con un filtro por nombre de película
+            String sql = "SELECT director FROM peliculas WHERE nombre_pelicula = ?";
+            statement = conexion.prepareStatement(sql);
+            statement.setString(1, nombrePelicula); // Establecer el nombre de la película como parámetro
+
+            // Ejecutar la consulta y obtener el resultado
+            resultSet = statement.executeQuery();
+
+            // Verificar si hay resultados
+            if (resultSet.next()) {
+                // Obtener la sinopsis de la película desde la columna 'sinopsis'
+                String directorpelicula = resultSet.getString("director");
+                return directorpelicula;
+            } else {
+                // Si no hay resultados, devolver un mensaje indicando que la película no fue encontrada
+                return "La película '" + nombrePelicula + "' no fue encontrada en la base de datos.";
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al obtener información de la película desde la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        } finally {
+            // Cerrar recursos
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+    private String agregarSaltosDeLinea(String sinopsis) {
+        StringBuilder sinopsisConSaltos = new StringBuilder();
+        String[] palabras = sinopsis.split("\\s+"); // Dividir la sinopsis en palabras
+
+        int contador = 0;
+        for (String palabra : palabras) {
+            sinopsisConSaltos.append(palabra).append(" ");
+            contador++;
+            // Agregar un salto de línea después de cada 10 palabras
+            if (contador == 16) {
+                sinopsisConSaltos.append("\n");
+                contador = 0; // Reiniciar el contador
+            }
+        }
+
+        return sinopsisConSaltos.toString();
+    }
+
+
+
+
+
     public static void main(String[] args) {
         new PELICULAS();
     }

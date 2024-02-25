@@ -14,6 +14,7 @@ public class login extends JFrame{
     private JPasswordField contrasenia;
     private JPanel panel_credenciales;
     private JLabel labelBienvenida;
+    private JLabel text;
     private Image imagen;
 
     public login(){
