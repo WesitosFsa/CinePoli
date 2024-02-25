@@ -41,6 +41,8 @@ public class login extends JFrame{
 
                 if (validarCredenciales(nombreUsuario, password)) {
                     PELICULAS pantalla = new PELICULAS();
+                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(panel1);
+                    frame.dispose();
 
                 } else {
                     JOptionPane.showMessageDialog(null, "Nombre de usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);

@@ -350,11 +350,6 @@ public class PELICULAS extends JFrame {
 
         return sinopsisConSaltos.toString();
     }
-
-
-
-
-
     public static void main(String[] args) {
         new PELICULAS();
     }
