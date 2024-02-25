@@ -2,7 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 public class PELICULAS extends JFrame {
     private JPanel PELICULAS;
     private JButton verCarteleraButton;
@@ -10,7 +13,7 @@ public class PELICULAS extends JFrame {
     private JScrollPane PanelPeliculas;
     private JPanel PeliculasAdentro;
     private JPanel Cartelera;
-
+    private Connection conexion;
     public PELICULAS() {
         super("Reservas");
         setContentPane(PELICULAS);
@@ -22,18 +25,12 @@ public class PELICULAS extends JFrame {
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-
-
+        establecerConexion();
         // Agregar más películas según sea necesario
         verCarteleraButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                agregarPelicula("Kimetsu no Yaiba", "src/img/uno.png");
-                agregarPelicula("Ferrari", "src/img/dos.png");
-                agregarPelicula("Los Oscars", "src/img/tres.png");
-                agregarPelicula("Dune", "src/img/cuatro.png");
-                agregarPelicula("Vida Pasada", "src/img/cinco.png");
-                agregarPelicula("Wonka", "src/img/seis.png");
+                    cargarPeliculasDesdeBD();
             }
         });
         cerrarSesionButton.addActionListener(new ActionListener() {
@@ -46,7 +43,37 @@ public class PELICULAS extends JFrame {
             }
         });
     }
-    private void agregarPelicula(String titulo, String rutaImagen) {
+    private void cargarPeliculasDesdeBD() {
+        try {
+
+            // Preparar la consulta SQL
+            String sql = "SELECT nombre_pelicula, foto_pelicula FROM peliculas";
+            PreparedStatement statement = conexion.prepareStatement(sql);
+
+            // Ejecutar la consulta y obtener el conjunto de resultados
+            ResultSet resultSet = statement.executeQuery();
+
+            // Iterar sobre los resultados y agregar cada película a la interfaz gráfica
+            while (resultSet.next()) {
+                String nombrePelicula = resultSet.getString("nombre_pelicula");
+                byte[] fotoPelicula = resultSet.getBytes("foto_pelicula");
+
+                // Convertir la imagen de bytes a ImageIcon
+                ImageIcon imagen = new ImageIcon(fotoPelicula);
+
+                // Llamar al método agregarPelicula con el nombre y la imagen
+                agregarPelicula(nombrePelicula, imagen);
+            }
+
+            // Cerrar recursos
+            resultSet.close();
+            statement.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al cargar películas desde la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    private void agregarPelicula(String titulo, ImageIcon imagen) {
         // Crear un panel para la película individual
         JPanel panelIndividual = new JPanel(new BorderLayout());
 
@@ -54,7 +81,6 @@ public class PELICULAS extends JFrame {
         panelIndividual.setBackground(new Color(33, 33, 33)); // #212121 en formato RGB
 
         // Añadir imagen de la película
-        ImageIcon imagen = new ImageIcon(rutaImagen);
         JLabel labelImagen = new JLabel(imagen);
         panelIndividual.add(labelImagen, BorderLayout.CENTER);
 
@@ -98,8 +124,15 @@ public class PELICULAS extends JFrame {
     }
 
 
-
-
+    private void establecerConexion() {
+        try {
+            Main conexionbd = new Main();
+            conexion = conexionbd.establecerConexion();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     public static void main(String[] args) {
         new PELICULAS();
     }
