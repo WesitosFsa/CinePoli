@@ -9,17 +9,17 @@ public class login extends JFrame{
     private JPanel LOGIN;
     private JButton Ingresar;
     private JButton registrarse;
-    private JLabel labelBienvenida;
     private JButton salir;
     private JTextField nombre;
     private JPasswordField contrasenia;
     private JPanel panel_credenciales;
+    private JLabel labelBienvenida;
     private Image imagen;
 
     public login(){
         /*Configuracion dela pantalla login*/
         setContentPane(panel1);
-        setSize(500,500);
+        setSize(800,500);
         setResizable(false);
         setLocationRelativeTo(null);
         setUndecorated(true);

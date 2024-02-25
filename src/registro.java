@@ -58,7 +58,7 @@ public class registro extends JFrame {
 
     public registro() {
         setContentPane(panel1);
-        setSize(500, 500);
+        setSize(800, 500);
         setResizable(false);
         setLocationRelativeTo(null);
         setUndecorated(true);
