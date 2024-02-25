@@ -1,105 +1,83 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-/**Comentario sobre cartelera
- * imagenes en el programa
- */
-public class PELICULAS extends JFrame{
+public class PELICULAS extends JFrame {
     private JPanel PELICULAS;
-    private JLabel PELI1;
-    private JLabel PELI2;
-    private JLabel PELI3;
-    private JLabel PELI4;
-    private JLabel PELI5;
-    private JLabel PELI6;
+    private JButton verCarteleraButton;
+    private JButton cerrarSesionButton;
+    private JScrollPane PanelPeliculas;
+    private JPanel PeliculasAdentro;
+    private JPanel Cartelera;
 
     public PELICULAS() {
-        /**Peliculas quemadas del momento
-         * UwU
-         */
         super("Reservas");
         setContentPane(PELICULAS);
+        PeliculasAdentro = new JPanel(new GridLayout(0, 3));
+        PanelPeliculas.setViewportView(PeliculasAdentro);
         setSize(800, 500);
         setResizable(false);
         setLocationRelativeTo(null);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-        PELI1.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                mostrarDialogo("Kimetsu no Yaiba - To the Hashira Training", "Director: Haruo Sotozaki\nAño: 2024\nGénero: Animación");
-            }
-        });
-        PELI2.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                mostrarDialogo("Ferrari", "Director: Michael Mann\nAño: 2023\nGénero: Biografía");
-            }
-        });
-        PELI3.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                mostrarDialogo("Yo Capitán", "Director: Matteo Garrone\nAño: 2023\nGénero: Drama");
-            }
-        });
-        PELI4.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                mostrarDialogo("Duna 2", "Director: Denis Villeneuve\nAño: 2024\nGénero: Ciencia ficción");
-            }
-        });
-        PELI5.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                mostrarDialogo("Vidas Pasadas", "Director: Celine Song\nAño: 2023\nGénero: Drama");
-            }
-        });
-        PELI6.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                mostrarDialogo("Wonka", "Director: Paul King\nAño: 2024\nGénero: Fantasía musical");
-            }
-        });
-
-        // Agrega MouseListeners a los demás JLabels de manera similar para mostrar el cuadro de diálogo correspondiente
 
 
-    }
-
-    private void mostrarDialogo(String titulo, String informacion) {
-        // Creamos un panel personalizado con la información de la película y el botón "Comprar"
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-
-        JTextArea texto = new JTextArea(informacion);
-        texto.setEditable(false);
-        panel.add(texto, BorderLayout.CENTER);
-
-        JButton botonComprar = new JButton("Comprar");
-        botonComprar.addActionListener(new ActionListener() {
+        // Agregar más películas según sea necesario
+        verCarteleraButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Acciones cuando se hace clic en el botón comprar
-                // Aquí puedes agregar la lógica para la compra de la película
-                JOptionPane.showMessageDialog(null, "Compra realizada");
+                agregarPelicula("Kimetsu no Yaiba", "src/img/uno.png");
+                agregarPelicula("Ferrari", "src/img/dos.png");
+                agregarPelicula("Los Oscars", "src/img/tres.png");
+                agregarPelicula("Dune", "src/img/cuatro.png");
+                agregarPelicula("Vida Pasada", "src/img/cinco.png");
+                agregarPelicula("Wonka", "src/img/seis.png");
             }
         });
-        panel.add(botonComprar, BorderLayout.SOUTH);
+    }
+    private void agregarPelicula(String titulo, String rutaImagen) {
+        // Crear un panel para la película individual
+        JPanel panelIndividual = new JPanel(new BorderLayout());
 
-        // Mostramos el panel personalizado con la información de la película
-        JOptionPane.showMessageDialog(null, panel, titulo, JOptionPane.PLAIN_MESSAGE);
+        // Establecer el color de fondo del panel
+        panelIndividual.setBackground(new Color(33, 33, 33)); // #212121 en formato RGB
+
+        // Añadir imagen de la película
+        ImageIcon imagen = new ImageIcon(rutaImagen);
+        JLabel labelImagen = new JLabel(imagen);
+        panelIndividual.add(labelImagen, BorderLayout.CENTER);
+
+        // Crear y configurar el botón para el título de la película
+        JButton botonTitulo = new JButton(titulo);
+        botonTitulo.setBackground(Color.decode("#0063A5"));  // Color de fondo del botón
+        botonTitulo.setForeground(Color.WHITE); // Color del texto
+        botonTitulo.setFont(new Font("Century Gothic", Font.BOLD, 11)); // Fuente personalizada
+
+        // Deshabilitar el efecto de resaltado al pasar el mouse sobre el botón
+        botonTitulo.setFocusPainted(true);
+        botonTitulo.setBorderPainted(true);
+        botonTitulo.setContentAreaFilled(true);
+
+        // Establecer el tamaño preferido del botón para que el fondo sea visible
+        botonTitulo.setPreferredSize(new Dimension(200, 30)); // Ajusta el tamaño según sea necesario
+
+        // Añadir el botón del título de la película al panel individual
+        panelIndividual.add(botonTitulo, BorderLayout.SOUTH); // Agregar el título en la parte inferior
+
+        // Añadir el panel individual al panel principal
+        PeliculasAdentro.add(panelIndividual);
+
+        // Actualizar la interfaz gráfica
+        revalidate(); // Revalidar el layout del contenedor
+        repaint();   // Volver a pintar los componentes
     }
 
-    public static void main(String[] args) {
 
+
+
+    public static void main(String[] args) {
         new PELICULAS();
     }
 }
