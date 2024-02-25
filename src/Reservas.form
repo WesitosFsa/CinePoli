@@ -769,8 +769,8 @@
             <properties>
               <background color="-16777216"/>
               <enabled value="true"/>
-              <font name="Eras Bold ITC" size="32"/>
-              <foreground color="-16777216"/>
+              <font name="Century Gothic" size="32" style="1"/>
+              <foreground color="-1118482"/>
               <text value="Reservas Cine Politecnica"/>
             </properties>
           </component>
@@ -807,13 +807,13 @@
             </constraints>
             <properties>
               <autoscrolls value="false"/>
-              <background color="-5764094"/>
+              <background color="-7100244"/>
               <enabled value="true"/>
-              <font name="Copperplate Gothic Light" size="14"/>
-              <foreground color="-16777216"/>
-              <hideActionText value="true"/>
+              <font name="Century Gothic" size="14" style="1"/>
+              <foreground color="-14606047"/>
+              <hideActionText value="false"/>
               <inheritsPopupMenu value="false"/>
-              <text value="SALIR"/>
+              <text value="Volver a la pantalla principal"/>
               <verifyInputWhenFocusTarget value="true"/>
               <verticalAlignment value="0"/>
               <verticalTextPosition value="0"/>
@@ -840,12 +840,12 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-2313188"/>
+              <background color="-16751707"/>
               <enabled value="true"/>
-              <font name="Copperplate Gothic Light" size="14" style="0"/>
-              <foreground color="-16777216"/>
-              <hideActionText value="true"/>
-              <text value="Continuar "/>
+              <font name="Century Gothic" size="14" style="1"/>
+              <foreground color="-14606047"/>
+              <hideActionText value="false"/>
+              <text value="Efectuar Pago "/>
             </properties>
             <clientProperties>
               <hideActionText class="java.lang.Boolean" value="true"/>
