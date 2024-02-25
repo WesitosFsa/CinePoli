@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class DATOS {
+public class DATOS extends JFrame{
     private JPanel DATOS;
     private JButton salirButton;
     private JButton reservarAsientoButton;
@@ -10,24 +10,23 @@ public class DATOS {
     private JTextArea textArea2;
 
     public DATOS() {
+        setContentPane(DATOS);
+        setSize(500,500);
+        setResizable(false);
+        setLocationRelativeTo(null);
+        setUndecorated(true);
+        setVisible(true);
+
         reservarAsientoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Reservas reserva = new Reservas();
                 reserva.setVisible(true);
-                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(reserva);
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(DATOS);
                 frame.dispose();
             }
         });
 
-        // Agrega ActionListener para el botón de salir
-        salirButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Sale de la aplicación
-                System.exit(0);
-            }
-        });
 
         // Añade la información al JTextArea1
         textArea1.append("La nueva película de Kimetsu no Yaiba, titulada “Kimetsu no Yaiba - To the Hashira Training”, \nproyectará por primera vez en cines el episodio 11 del Arco de la Aldea de los Herreros, \nmostrando así la conclusión de la feroz batalla entre Tanjiro y la Cuarta Luna Creciente, \nHatengu, además de cómo Nezuko logra caminar bajo el sol.");
@@ -45,13 +44,16 @@ public class DATOS {
         textArea2.append(" - 1:00 PM: Kimetsu no Yaiba - To the Hashira Training - ESPAÑOL\n");
         textArea2.append(" - 4:00 PM: Kimetsu no Yaiba - To the Hashira Training - JAPONES\n");
         textArea2.append(" - 7:00 PM: Kimetsu no Yaiba - To the Hashira Training - INGLES\n");
+        salirButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PELICULAS pelis = new PELICULAS();
+                pelis.setVisible(true);
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(DATOS);
+                frame.dispose();
+
+            }
+        });
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("DATOS");
-        frame.setContentPane(new DATOS().DATOS);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-    }
 }

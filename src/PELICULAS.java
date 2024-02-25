@@ -36,6 +36,15 @@ public class PELICULAS extends JFrame {
                 agregarPelicula("Wonka", "src/img/seis.png");
             }
         });
+        cerrarSesionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                login volver = new login();
+                volver.setVisible(true);
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(PELICULAS);
+                frame.dispose();
+            }
+        });
     }
     private void agregarPelicula(String titulo, String rutaImagen) {
         // Crear un panel para la película individual
@@ -62,6 +71,20 @@ public class PELICULAS extends JFrame {
 
         // Establecer el tamaño preferido del botón para que el fondo sea visible
         botonTitulo.setPreferredSize(new Dimension(200, 30)); // Ajusta el tamaño según sea necesario
+
+        // Agregar ActionListener al botón para abrir el panel registro y cerrar PELICULAS
+        botonTitulo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Abrir el panel registro
+                DATOS DATOS = new DATOS();
+                DATOS.setVisible(true);
+
+                // Cerrar el panel PELICULAS
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(PELICULAS);
+                frame.dispose();
+            }
+        });
 
         // Añadir el botón del título de la película al panel individual
         panelIndividual.add(botonTitulo, BorderLayout.SOUTH); // Agregar el título en la parte inferior

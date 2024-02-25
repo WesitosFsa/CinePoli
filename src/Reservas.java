@@ -79,16 +79,10 @@ public class Reservas extends JFrame{
         SALIRButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int respuesta = JOptionPane.showConfirmDialog(null, "¿Quiere salir de la app?",
-                        "Salir", JOptionPane.YES_NO_OPTION);
-                try {
-                    if (respuesta == JOptionPane.YES_OPTION) {
-                        dispose();
-                        System.exit(0);
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+                PELICULAS pelis = new PELICULAS();
+                pelis.setVisible(true);
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(panel1);
+                frame.dispose();
             }
         });
 
@@ -104,6 +98,11 @@ public class Reservas extends JFrame{
                 Dinero.setText("$" + totalPagar);
                 // Limpiar la lista de asientos reservados
                 asientosReservados.clear();
+
+                PantallaReservas factura = new PantallaReservas();
+                factura.setVisible(true);
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(panel1);
+                frame.dispose();
             }
         });
     }
