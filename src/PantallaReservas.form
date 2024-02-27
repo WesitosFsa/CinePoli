@@ -258,6 +258,7 @@
                 </constraints>
                 <properties>
                   <background color="-14606047"/>
+                  <font name="Century Gothic" size="15" style="1"/>
                   <foreground color="-1118482"/>
                   <text value="Imprimir"/>
                 </properties>
@@ -267,6 +268,9 @@
                   <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <background color="-14606047"/>
+                  <font name="Century Gothic" size="15" style="1"/>
+                  <foreground color="-1118482"/>
                   <text value="Regresar"/>
                 </properties>
               </component>

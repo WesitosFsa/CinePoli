@@ -28,7 +28,7 @@ public class PantallaReservas  extends JFrame{
         /** Configuración de la ventana principal*/
         super("Reservas");
         setContentPane(panel1);
-        setSize(500, 500);
+        setSize(800, 500);
         setResizable(false);
         setLocationRelativeTo(null);
         setUndecorated(true);
