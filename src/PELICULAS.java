@@ -14,6 +14,7 @@ public class PELICULAS extends JFrame {
     private JPanel PeliculasAdentro;
     private JPanel Cartelera;
     private Connection conexion;
+    public int cargas = 0;
     public PELICULAS() {
         super("Reservas");
         setContentPane(PELICULAS);
@@ -30,7 +31,13 @@ public class PELICULAS extends JFrame {
         verCarteleraButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(cargas == 0) {
                     cargarPeliculasDesdeBD();
+                    cargas = 1;
+                }
+                else{
+                }
+
             }
         });
         cerrarSesionButton.addActionListener(new ActionListener() {
@@ -112,6 +119,7 @@ public class PELICULAS extends JFrame {
                 // Crear un objeto DATOS y pasar los datos de la película al constructor
                 DATOS datos = new DATOS(sinopsisPelicula, titulo, generoPelicula,directorPelicula, anhopelicula, imagen,clasificacion);
                 datos.setVisible(true);
+                cargas = 0;
                 // Cerrar el panel PELICULAS
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(PELICULAS);
                 frame.dispose();
