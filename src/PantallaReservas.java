@@ -21,6 +21,8 @@ public class PantallaReservas  extends JFrame{
     private JLabel NumerodeAsiento;
     private JLabel Horario;
     private JLabel Costo;
+    private JButton regresarButton;
+
     /** Constructor de la clase PantallaReservas*/
     PantallaReservas() {
         /** Configuración de la ventana principal*/
@@ -44,12 +46,25 @@ public class PantallaReservas  extends JFrame{
                                 ex.printStackTrace();
                                 JOptionPane.showMessageDialog(null, "Error al generar el PDF.");
                             }
+                            PELICULAS pelis = new PELICULAS();
+                            pelis.setVisible(true);
+                            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(panel1);
+                            frame.dispose();
                         } else {
                             JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos obligatorios.");
                         }
                     }
                 });
+        regresarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Reservas reserva = new Reservas();
+                reserva.setVisible(true);
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(panel1);
+                frame.dispose();
             }
+        });
+    }
     public static void main(String[] args) {
         /* Ejecuta la creación de la interfaz de usuario en el hilo de despacho de eventos de Swing*/
         SwingUtilities.invokeLater(() -> new PantallaReservas());

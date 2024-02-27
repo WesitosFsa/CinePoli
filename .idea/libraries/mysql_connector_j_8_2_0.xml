@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="mysql-connector-j-8.2.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/mysql-connector-j-8.2.0/mysql-connector-j-8.2.0/mysql-connector-j-8.2.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/jcommon-1.0.23.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/jfreechart-1.0.19.jar!/" />
+      <root url="file://$PROJECT_DIR$/.." />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/src" />
+      <root url="file://$PROJECT_DIR$/../EPN/XAMPP/tomcat/webapps/docs/appdev/sample/src" />
+      <root url="file://$PROJECT_DIR$/../EPN/XAMPP/tomcat/webapps/examples/WEB-INF/classes" />
+      <root url="file://$PROJECT_DIR$/../HTML/Power/Ole Automation/Java Samples/Create OOM" />
+    </SOURCES>
+  </library>
+</component>
