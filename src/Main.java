@@ -5,9 +5,9 @@ import java.sql.SQLException;
 
 public class Main {
     Connection establecerConexion() throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/cinefilo";
-        String usuarioDB = "root";
-        String contraseniaDB = "123456mm";
+        String url = "jdbc:mysql://ukghiar85gp7mrpy:nQVmOkgbY4UHYZybHvO2@bxrwabtu14qddifcwky1-mysql.services.clever-cloud.com:3306/bxrwabtu14qddifcwky1";
+        String usuarioDB = "ukghiar85gp7mrpy";
+        String contraseniaDB = "nQVmOkgbY4UHYZybHvO2";
         return DriverManager.getConnection(url, usuarioDB, contraseniaDB);
     }
     public static void main(String[] args) {

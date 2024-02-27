@@ -23,7 +23,7 @@ public class Estadistica extends JFrame{
         /**Config*uración de la ventana principal*/
         super("Estadisticas");
         setContentPane(panel1);
-        setSize(500, 500);
+        setSize(800,500);
         setResizable(false);
         setLocationRelativeTo(null);
         setUndecorated(true);
@@ -59,7 +59,7 @@ public class Estadistica extends JFrame{
                 /**Añade el gráfico al panel Estadisticas*/
                 ChartPanel panel = new ChartPanel(grafico_barras);
                 panel.setMouseWheelEnabled(true);
-                panel.setPreferredSize(new Dimension(500,400));
+                panel.setPreferredSize(new Dimension(800,400));
                 Estadisticas.setLayout(new BorderLayout());
                 Estadisticas.add(panel);
                 pack();
@@ -96,7 +96,7 @@ public class Estadistica extends JFrame{
                 /**Añade el gráfico al panel Estadisticas*/
                 ChartPanel panel = new ChartPanel(grafico_barras);
                 panel.setMouseWheelEnabled(true);
-                panel.setPreferredSize(new Dimension(500,400));
+                panel.setPreferredSize(new Dimension(800,400));
                 Estadisticas.setLayout(new BorderLayout());
                 Estadisticas.add(panel);
                 pack();
