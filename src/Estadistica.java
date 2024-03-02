@@ -13,7 +13,6 @@ public class Estadistica extends JFrame{
     /**Componentes de la interfaz de usuario */
     private JPanel panel1;
     private JButton ventas;
-    private JButton salirButton;
     private JButton salasOcupadasButton;
     private JButton menuButton;
     private JPanel Estadisticas;
@@ -105,24 +104,16 @@ public class Estadistica extends JFrame{
         });
 
         /**Acción cuando se hace clic en el botón "salirButton" */
-        salirButton.addActionListener(new ActionListener() {
+        menuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                /**Muestra un diálogo de confirmación para salir de la aplicación*/
-                int respuesta = JOptionPane.showConfirmDialog(null, "¿Quiere salir de la app?",
-                        "Salir", JOptionPane.YES_NO_OPTION);
-                try {
-                    if (respuesta == JOptionPane.YES_OPTION) {
-                        /**Si se confirma la salida, cierra la ventana y termina la aplicación*/
-                        dispose();
-                        System.exit(0);
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+                ADMIN Admin = new ADMIN();
+                Admin.setVisible(true);
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(panel1);
+                frame.dispose();
             }
-
         });
+
     }
 
     // Método principal para iniciar la aplicación
