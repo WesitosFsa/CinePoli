@@ -6,10 +6,8 @@ import java.util.*;
 public class salas extends JFrame{
     JPanel panel1;
     private JTextField textFieldIDPELICULA;
-    private JTextField textFieldHORARIO;
     private JTextField textFieldASIENTOS;
     private JButton INHABILITARButton;
-    private JLabel HORARIO;
     private JLabel IDPELICULA;
     private JLabel ASIENTOS;
     private JTextField mostrarPelicula;
@@ -21,6 +19,8 @@ public class salas extends JFrame{
     private JButton ingresarButton;
     private JButton verInformacionButton;
     private JButton menuButton;
+    private JLabel HORARIO;
+    private JTextField textFieldHORARIO;
 
     private List<verpelis.Pelicula> listaPeliculas;
     private Map<String, Salas> salas;
