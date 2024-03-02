@@ -37,6 +37,10 @@ public class verpelis extends JFrame{
         tableModel.addColumn("Nombre");
         tableModel.addColumn("Género");
         tableModel.addColumn("Descripción");
+        tableModel.addColumn("Director");
+        tableModel.addColumn("Año");
+        tableModel.addColumn("Clasificacion");
+        tableModel.addColumn("Ruta imaguen");
 
         peliculasTable.setModel(tableModel);
         peliculasTable.setEnabled(false);
@@ -79,10 +83,14 @@ public class verpelis extends JFrame{
         String nombre = JOptionPane.showInputDialog("Ingrese el nombre de la película:");
         String genero = JOptionPane.showInputDialog("Ingrese el género de la película:");
         String descripcion = JOptionPane.showInputDialog("Ingrese la descripción de la película:");
+        String director = JOptionPane.showInputDialog("Ingrese la director de la película:");
+        int anio = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el año de la película:"));
+        String clasificacion = JOptionPane.showInputDialog("Ingrese la clasificacion de la película:");
+        String imaguen = JOptionPane.showInputDialog("Ingrese la ruta de la imaguen de la película:");
 
         // Generar un nuevo ID para la película
         int id = listaPeliculas.size() + 1;
-        Pelicula nuevaPelicula = new Pelicula(id, nombre, genero, descripcion);
+        Pelicula nuevaPelicula = new Pelicula(id, nombre, genero, descripcion, director, anio, clasificacion, imaguen);
         listaPeliculas.add(nuevaPelicula);
 
         // Guardar películas en preferencias
@@ -123,7 +131,7 @@ public class verpelis extends JFrame{
         tableModel.setRowCount(0);
 
         for (Pelicula pelicula : listaPeliculas) {
-            Object[] rowData = {pelicula.getId(), pelicula.getNombre(), pelicula.getGenero(), pelicula.getDescripcion()};
+            Object[] rowData = {pelicula.getId(), pelicula.getNombre(), pelicula.getGenero(), pelicula.getDescripcion(), pelicula.getDirector(), pelicula.getAnio(), pelicula.getClasificacion(), pelicula.getImaguen()};
             tableModel.addRow(rowData);
         }
     }
@@ -140,7 +148,11 @@ public class verpelis extends JFrame{
                 String nombre = datos[1];
                 String genero = datos[2];
                 String descripcion = datos[3];
-                Pelicula pelicula = new Pelicula(id, nombre, genero, descripcion);
+                String director = datos[4];
+                int anio = Integer.parseInt(datos[5]);
+                String clasificacion = datos[6];
+                String imaguen = datos[7];
+                Pelicula pelicula = new Pelicula(id, nombre, genero, descripcion, director, anio, clasificacion, imaguen);
                 listaPeliculas.add(pelicula);
             }
             // Actualizar la pantalla con las películas cargadas
@@ -160,7 +172,11 @@ public class verpelis extends JFrame{
             peliculasStr.append(pelicula.getId()).append(",")
                     .append(pelicula.getNombre()).append(",")
                     .append(pelicula.getGenero()).append(",")
-                    .append(pelicula.getDescripcion()).append(";");
+                    .append(pelicula.getDescripcion()).append(";")
+                    .append(pelicula.getDirector()).append(";")
+                    .append(pelicula.getAnio()).append(";")
+                    .append(pelicula.getClasificacion()).append(";")
+                    .append(pelicula.getImaguen()).append(";");
         }
         preferences.put("peliculas", peliculasStr.toString());
     }
@@ -196,13 +212,22 @@ public class verpelis extends JFrame{
         private String nombre;
         private String genero;
         private String descripcion;
+        private String director;
+        private int anio;
+        private String clasificacion;
+        private String imaguen;
+
 
         // Constructor de la clase Pelicula
-        public Pelicula(int id, String nombre, String genero, String descripcion) {
+        public Pelicula(int id, String nombre, String genero, String descripcion, String director, int anio, String clasificacion, String imaguen) {
             this.id = id;
             this.nombre = nombre;
             this.genero = genero;
             this.descripcion = descripcion;
+            this.director = director;
+            this.anio = anio;
+            this.clasificacion = clasificacion;
+            this.imaguen = imaguen;
         }
 
         // Métodos getter para obtener información de la película
@@ -221,6 +246,17 @@ public class verpelis extends JFrame{
         public String getDescripcion() {
             return descripcion;
         }
+        public String getDirector() { return director; }
+        public int getAnio() {
+            return anio;
+        }
+        public String getClasificacion() {
+            return clasificacion;
+        }
+        public String getImaguen() {
+            return imaguen;
+        }
+
     }
 }
 
