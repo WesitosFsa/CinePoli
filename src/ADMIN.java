@@ -36,7 +36,10 @@ public class ADMIN extends JFrame{
         VERVENTASButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Manejar el evento de VERVENTASButton
+                Estadistica pantalla = new Estadistica();
+                pantalla.setVisible(true);
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(panel1);
+                frame.dispose();
             }
         });
 
