@@ -3,7 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 
-public class salas {
+public class salas extends JFrame{
     JPanel panel1;
     private JTextField textFieldIDPELICULA;
     private JTextField textFieldHORARIO;
@@ -27,7 +27,15 @@ public class salas {
     private ADMIN salasScreen;
 
     // Constructor de la clase salas
-    public salas(ADMIN salasScreen, List<verpelis.Pelicula> listaPeliculas) {
+    public salas() {
+        /*Configuracion dela pantalla Salas*/
+        setContentPane(panel1);
+        setSize(800,500);
+        setResizable(false);
+        setLocationRelativeTo(null);
+        setUndecorated(true);
+        setVisible(true);
+
         this.salasScreen = salasScreen;
         this.listaPeliculas = listaPeliculas;
         salas = new HashMap<String, Salas>();
@@ -36,7 +44,7 @@ public class salas {
         ingresarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ingresarSala();
+
             }
         });
 
@@ -44,7 +52,7 @@ public class salas {
         verInformacionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                verInformacion();
+
             }
         });
 
@@ -52,7 +60,7 @@ public class salas {
         INHABILITARButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                inhabilitarSala();
+
             }
         });
 
@@ -60,102 +68,15 @@ public class salas {
         menuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                volverAAdmin();
+                ADMIN Admin = new ADMIN();
+                Admin.setVisible(true);
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(panel1);
+                frame.dispose();
             }
         });
     }
-
-    // Método para ingresar una nueva sala
-    private void ingresarSala() {
-        String idPelicula = textFieldIDPELICULA.getText();
-        String horario = textFieldHORARIO.getText();
-        String asientos = textFieldASIENTOS.getText();
-
-        // Crear una nueva instancia de la clase Salas y agregarla al mapa de salas
-        Salas sala = new Salas(idPelicula, horario, asientos);
-        salas.put(idPelicula, sala);
-
-        // Buscar la película correspondiente en la lista de películas
-        Optional<verpelis.Pelicula> peliculaOptional = listaPeliculas.stream()
-                .filter(p -> p.getId() == Integer.parseInt(idPelicula))
-                .findFirst();
-
-        // Verificar si la película fue encontrada
-        if (peliculaOptional.isPresent()) {
-            String nombrePelicula = peliculaOptional.get().getNombre();
-            JOptionPane.showMessageDialog(null, "Sala ingresada correctamente para la película: " + nombrePelicula);
-
-            // Actualizar la lista de películas en tiempo real en la interfaz gráfica
-            if (salasScreen != null) {
-                salasScreen.actualizarListaPeliculas(listaPeliculas);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Película no encontrada");
-        }
-    }
-
-    // Método para ver la información de una sala
-    private void verInformacion() {
-        String idPelicula = textFieldIDPELICULA.getText();
-
-        // Verificar si la película con el ID proporcionado existe en la lista de películas
-        if (listaPeliculas.stream().anyMatch(pelicula -> pelicula.getId() == Integer.parseInt(idPelicula))) {
-            // Obtener la película correspondiente de la lista
-            verpelis.Pelicula pelicula = listaPeliculas.stream()
-                    .filter(p -> p.getId() == Integer.parseInt(idPelicula))
-                    .findFirst()
-                    .orElse(null);
-
-            // Mostrar información de la película y su sala asociada, si existe
-            mostrarPelicula.setText(pelicula.getNombre());
-
-            if (salas.containsKey(idPelicula)) {
-                Salas sala = salas.get(idPelicula);
-                mostrarHorario.setText(sala.getHorario());
-                mostrarAsientos.setText(sala.getAsientos());
-            } else {
-                JOptionPane.showMessageDialog(null, "La sala con ID " + idPelicula + " no existe");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "La sala con ID " + idPelicula + " no existe");
-        }
-    }
-
-    // Método para inhabilitar una sala
-    private void inhabilitarSala() {
-        String idPelicula = textFieldIDPELICULA.getText();
-
-        // Verificar si la película con el ID proporcionado existe en la lista de películas
-        if (listaPeliculas.stream().anyMatch(pelicula -> pelicula.getId() == Integer.parseInt(idPelicula))) {
-            // Eliminar la película y su sala asociada de las listas respectivas
-            listaPeliculas.removeIf(pelicula -> pelicula.getId() == Integer.parseInt(idPelicula));
-            salas.remove(idPelicula);
-            JOptionPane.showMessageDialog(null, "Sala inhabilitada correctamente");
-        } else {
-            JOptionPane.showMessageDialog(null, "La sala con ID " + idPelicula + " no existe");
-        }
-    }
-
-    // Método para volver al menú principal de administración
-    private void volverAAdmin() {
-        if (salasScreen != null) {
-            salasScreen.mostrarVerPelis();
-            SwingUtilities.getWindowAncestor(panel1).dispose();
-        } else {
-            JOptionPane.showMessageDialog(null, "La instancia de VerPelis es null");
-        }
-    }
-
-    // Método principal para ejecutar la aplicación
-    public static void main(String[] args) {
-        // En este ejemplo, crea una lista de películas ficticia para pasarla a la instancia de salas
-        List<verpelis.Pelicula> listaPeliculas = new ArrayList<>();
-        JFrame frame = new JFrame("SalasApp");
-        frame.setContentPane(new salas(null, listaPeliculas).panel1);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-    }
+    // Método para CRUD
+    // estos metodos deben de estar conectada a la bd
 
     // Método para actualizar la lista de películas desde otras partes de la aplicación
     public void actualizarListaPeliculas(List<verpelis.Pelicula> listaPeliculas) {

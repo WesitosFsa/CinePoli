@@ -43,10 +43,16 @@ public class PELICULAS extends JFrame {
         cerrarSesionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                login volver = new login();
-                volver.setVisible(true);
-                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(PELICULAS);
-                frame.dispose();
+                int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que quieres cerrar sesión?", "Cerrar Sesión", JOptionPane.YES_NO_OPTION);
+
+                if (opcion == JOptionPane.YES_OPTION) {
+                    login volver = new login();
+                    volver.setVisible(true);
+                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(PELICULAS);
+                    frame.dispose();
+                } else {
+
+                }
             }
         });
     }

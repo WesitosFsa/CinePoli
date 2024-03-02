@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.prefs.Preferences;
 
-public class verpelis {
+public class verpelis extends JFrame{
     JPanel panel1;
     private JButton añadirButton;
     private JButton eliminarButton;
@@ -21,9 +21,14 @@ public class verpelis {
     private Preferences preferences = Preferences.userNodeForPackage(getClass());
 
     // Constructor de la clase verpelis
-    public verpelis(ADMIN adminScreen, verpelis salasScreen) {
-        this.adminScreen = adminScreen;
-        this.salasScreen = salasScreen;
+    public verpelis() {
+        /*Configuracion dela pantalla VerPelis*/
+        setContentPane(panel1);
+        setSize(800,500);
+        setResizable(false);
+        setLocationRelativeTo(null);
+        setUndecorated(true);
+        setVisible(true);
         this.listaPeliculas = new ArrayList<>();
 
         // Configuración del modelo de tabla para mostrar películas
@@ -56,7 +61,10 @@ public class verpelis {
         menuPrincipalButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                volverAAdmin();
+                ADMIN Admin = new ADMIN();
+                Admin.setVisible(true);
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(panel1);
+                frame.dispose();
             }
         });
 
@@ -119,17 +127,6 @@ public class verpelis {
             tableModel.addRow(rowData);
         }
     }
-
-    // Método para volver a la pantalla principal de administración
-    private void volverAAdmin() {
-        if (adminScreen != null) {
-            adminScreen.mostrarAdmin();
-            SwingUtilities.getWindowAncestor(panel1).dispose();
-        } else {
-            JOptionPane.showMessageDialog(null, "La instancia de Admin es null");
-        }
-    }
-
     // Método para cargar películas desde preferencias al iniciar la aplicación
     private void cargarPeliculasDesdePreferencias() {
         String peliculasGuardadas = preferences.get("peliculas", "");
@@ -187,20 +184,12 @@ public class verpelis {
     }
 
     // Método principal para ejecutar la aplicación
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("VerPelis");
-        frame.setContentPane(new verpelis(null, null).panel1);
-        frame.setSize(800, 500);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-    }
 
     // Método para actualizar la lista de películas desde otras partes de la aplicación
     public void actualizarListaPeliculas(List<Pelicula> listaPeliculas) {
         this.listaPeliculas = listaPeliculas;
         mostrarPeliculas();
     }
-
     // Clase estática interna que representa una película
     public static class Pelicula {
         private int id;

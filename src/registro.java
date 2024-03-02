@@ -22,6 +22,8 @@ public class registro extends JFrame {
     private JPanel bienvenida;
     private JTextField num_tarjeta;
     private JTextField Año_Nacimiento;
+    private JTextField cedula;
+    private JTextField Saldo;
     private SimpleDateFormat dateFormat;
 
     public registro() {
@@ -54,6 +56,9 @@ public class registro extends JFrame {
                     int telefonoUsuario = Integer.parseInt(telefono.getText());
                     String numtarjeta = num_tarjeta.getText();
                     String AnioNacimiento = Año_Nacimiento.getText();
+                    String Cedula = cedula.getText();
+                    String rol = "1";
+                    String Saldo_trajeta = Saldo.getText();
 
                     if (camposNoVacios()) {
                         // Validar el formato del año de nacimiento
@@ -75,7 +80,7 @@ public class registro extends JFrame {
                             Main main = new Main();
                             Connection conexion = main.establecerConexion();
 
-                            String query = "INSERT INTO clientes (idcliente, nom_usuario, contra_usuario, correo, telf_usuario, Año_nacimiento, num_tarj) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                            String query = "INSERT INTO clientes (idcliente, nom_usuario, contra_usuario, correo, telf_usuario, Año_nacimiento, num_tarj, id_rol, cedula, saldo) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
                             // Preparar la declaración
                             try (PreparedStatement preparedStatement = conexion.prepareStatement(query)) {
@@ -87,6 +92,11 @@ public class registro extends JFrame {
                                 preparedStatement.setInt(5, telefonoUsuario);
                                 preparedStatement.setString(6, AnioNacimiento);
                                 preparedStatement.setInt(7, Integer.parseInt(numtarjeta));
+                                preparedStatement.setString(6, AnioNacimiento);
+                                preparedStatement.setInt(7, Integer.parseInt(numtarjeta));
+                                preparedStatement.setString(8, rol);
+                                preparedStatement.setString(9, Cedula);
+                                preparedStatement.setInt(10, Integer.parseInt(Saldo_trajeta));
 
                                 // Ejecutar la consulta
                                 preparedStatement.executeUpdate();
