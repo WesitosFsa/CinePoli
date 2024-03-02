@@ -69,8 +69,8 @@ public class DATOS extends JFrame {
         reservarAsientoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Reservas reserva = new Reservas();
-                reserva.setVisible(true);
+                Reser reser = new Reser();
+                reser.setVisible(true);
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(DATOS);
                 frame.dispose();
             }

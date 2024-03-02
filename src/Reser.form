@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Reser">
+  <grid id="27dc6" binding="panel1" default-binding="true" layout-manager="GridLayoutManager" row-count="6" column-count="8" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="1223" height="710"/>
+    </constraints>
+    <properties>
+      <background color="-14606047"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="978f" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="8" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-878262"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="8f5d" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-16777216"/>
+              <enabled value="true"/>
+              <font name="Century Gothic" size="30" style="1"/>
+              <foreground color="-1118482"/>
+              <text value="Reservas Cine Politecnica"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <hspacer id="52c47">
+        <constraints>
+          <grid row="2" column="7" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </hspacer>
+      <hspacer id="f0e5d">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </hspacer>
+      <grid id="25e86" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="10" left="0" bottom="25" right="50"/>
+        <constraints>
+          <grid row="5" column="1" row-span="1" col-span="4" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-14606047"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="eec25" class="javax.swing.JButton" binding="SALIRButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <autoscrolls value="false"/>
+              <background color="-7100244"/>
+              <enabled value="true"/>
+              <font name="Century Gothic" size="14" style="1"/>
+              <foreground color="-14606047"/>
+              <hideActionText value="true"/>
+              <inheritsPopupMenu value="false"/>
+              <text value="Volver a Cartelera"/>
+              <verifyInputWhenFocusTarget value="true"/>
+              <verticalAlignment value="0"/>
+              <verticalTextPosition value="0"/>
+              <visible value="true"/>
+            </properties>
+            <clientProperties>
+              <hideActionText class="java.lang.Boolean" value="true"/>
+            </clientProperties>
+          </component>
+        </children>
+      </grid>
+      <grid id="34ab3" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="10" left="50" bottom="25" right="0"/>
+        <constraints>
+          <grid row="5" column="5" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-14606047"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="2d38d" class="javax.swing.JButton" binding="continuarButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-16751707"/>
+              <enabled value="true"/>
+              <font name="Century Gothic" size="14" style="1"/>
+              <foreground color="-14606047"/>
+              <hideActionText value="true"/>
+              <text value="Escoger Asientos"/>
+            </properties>
+            <clientProperties>
+              <hideActionText class="java.lang.Boolean" value="true"/>
+              <html.disable class="java.lang.Boolean" value="false"/>
+            </clientProperties>
+          </component>
+        </children>
+      </grid>
+      <grid id="31343" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="20" left="50" bottom="0" right="0"/>
+        <constraints>
+          <grid row="4" column="6" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-14606047"/>
+        </properties>
+        <border type="none"/>
+        <children/>
+      </grid>
+      <grid id="9ee67" layout-manager="GridLayoutManager" row-count="1" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="3" column="1" row-span="1" col-span="6" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none" title="Horarios"/>
+        <children>
+          <component id="21209" class="javax.swing.JButton" binding="c1Button" default-binding="true">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-7100244"/>
+              <foreground color="-16777216"/>
+              <text value="7:10 - 9:00"/>
+            </properties>
+          </component>
+          <component id="c22d2" class="javax.swing.JButton" binding="c2Button" default-binding="true">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-7100244"/>
+              <foreground color="-16777216"/>
+              <text value="11:20 - 13:00"/>
+            </properties>
+          </component>
+          <component id="18918" class="javax.swing.JButton" binding="c3Button" default-binding="true">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-7100244"/>
+              <foreground color="-16777216"/>
+              <text value="14:10 - 16:00"/>
+            </properties>
+          </component>
+          <component id="b20d2" class="javax.swing.JButton" binding="c4Button" default-binding="true">
+            <constraints>
+              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-7100244"/>
+              <foreground color="-16777216"/>
+              <text value="17:20 - 19:00"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="3215" binding="Salasar" layout-manager="GridLayoutManager" row-count="1" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="25" left="25" bottom="25" right="25"/>
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="6" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-526345"/>
+          <foreground color="-2629147"/>
+        </properties>
+        <border type="etched" title="Salas">
+          <font name="Yu Gothic UI Semilight" size="14" style="1"/>
+          <title-color color="-16777216"/>
+        </border>
+        <children>
+          <component id="38bc" class="javax.swing.JButton" binding="a1Button" default-binding="true">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-7100244"/>
+              <enabled value="true"/>
+              <font/>
+              <foreground color="-16777216"/>
+              <hideActionText value="false"/>
+              <text value="Sala A1"/>
+            </properties>
+          </component>
+          <component id="5b433" class="javax.swing.JButton" binding="a2Button" default-binding="true">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-7100244"/>
+              <font/>
+              <foreground color="-16777216"/>
+              <text value="Sala A2"/>
+            </properties>
+          </component>
+          <component id="30e4f" class="javax.swing.JButton" binding="a3Button" default-binding="true">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-7100244"/>
+              <foreground color="-16777216"/>
+              <text value=" Sala A3"/>
+            </properties>
+          </component>
+          <component id="7907f" class="javax.swing.JButton" binding="a4Button" default-binding="true">
+            <constraints>
+              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-7100244"/>
+              <enabled value="true"/>
+              <foreground color="-16777216"/>
+              <text value=" Sala A4"/>
+            </properties>
+          </component>
+          <component id="e0d61" class="javax.swing.JButton" binding="a6Button">
+            <constraints>
+              <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-7100244"/>
+              <foreground color="-16777216"/>
+              <text value=" Sala A6"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="aa832" layout-manager="GridLayoutManager" row-count="1" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="2" column="1" row-span="1" col-span="6" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none" title="Días"/>
+        <children>
+          <component id="732e6" class="javax.swing.JButton" binding="b1Button" default-binding="true">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-7100244"/>
+              <foreground color="-16777216"/>
+              <text value="Lunes"/>
+            </properties>
+          </component>
+          <component id="27c3b" class="javax.swing.JButton" binding="b2Button" default-binding="true">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-7100244"/>
+              <foreground color="-16777216"/>
+              <text value="Martes"/>
+            </properties>
+          </component>
+          <component id="9bc01" class="javax.swing.JButton" binding="b3Button" default-binding="true">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-7100244"/>
+              <foreground color="-16777216"/>
+              <text value="Miercoles"/>
+            </properties>
+          </component>
+          <component id="b75f6" class="javax.swing.JButton" binding="b4Button" default-binding="true">
+            <constraints>
+              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-7100244"/>
+              <foreground color="-16777216"/>
+              <text value="Jueves"/>
+            </properties>
+          </component>
+          <component id="d9612" class="javax.swing.JButton" binding="b5Button" default-binding="true">
+            <constraints>
+              <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-7100244"/>
+              <foreground color="-16777216"/>
+              <text value="Viernes"/>
+            </properties>
+          </component>
+          <component id="9a267" class="javax.swing.JButton" binding="b6Button">
+            <constraints>
+              <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-7100244"/>
+              <foreground color="-16777216"/>
+              <text value="Sabado"/>
+            </properties>
+          </component>
+          <component id="2156d" class="javax.swing.JButton" binding="b7Button">
+            <constraints>
+              <grid row="0" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-7100244"/>
+              <foreground color="-16777216"/>
+              <text value="Domingo"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>
