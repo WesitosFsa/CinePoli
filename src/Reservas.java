@@ -32,8 +32,8 @@ public class Reservas extends JFrame{
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-        login user = new login();
-        String usuario = login.usuario;
+        //login user = new login();
+        //String usuario = login.usuario;
         buttons = new JButton[]{
                 a1Button, a2Button, a3Button, a4Button, a5Button, a6Button, a7Button, a8Button, a9Button,
                 b1Button, b2Button, b3Button, b4Button, b5Button, b6Button, b7Button, b8Button, b9Button,

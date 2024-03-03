@@ -28,8 +28,8 @@ public class PELICULAS extends JFrame {
         setVisible(true);
         establecerConexion();
 
-        login user = new login();
-        String usuario = login.usuario;
+        //login user = new login();
+        //String usuario = login.usuario;
 
         // Agregar más películas según sea necesario
         verCarteleraButton.addActionListener(new ActionListener() {

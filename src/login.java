@@ -17,8 +17,8 @@ public class login extends JFrame{
     private JLabel text;
     private Image imagen;
 
-    public static String usuario;
-
+    //public static String usuario;
+    //usuario = nombre.getText();
     public login(){
         /*Configuracion dela pantalla login*/
         setContentPane(panel1);
@@ -50,7 +50,6 @@ public class login extends JFrame{
                         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(panel1);
                         frame.dispose();
                     } else {
-                        usuario = nombre.getText();
                         // Otro rol - Ir a la pantalla PELICULAS
                         PELICULAS pantallaPeliculas = new PELICULAS();
                         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(panel1);
