@@ -8,11 +8,13 @@ public class Reser extends JFrame{
 
     public static final Color COLOR_RESERVADO = new Color(147, 168, 172);
     private JPanel panel1;
-    private JPanel Salasar;
+    private JPanel Salaspanel;
     private JButton a1Button, a2Button, a3Button, a4Button, a6Button,
             b1Button, b2Button, b3Button, b4Button, b5Button, b6Button, b7Button,
             c1Button, c2Button, c3Button, c4Button,
             SALIRButton, continuarButton;
+    private JPanel Diaspanel;
+    private JPanel Horariospanel;
 
     private JButton[] Salas;
     private JButton[] Dias;
