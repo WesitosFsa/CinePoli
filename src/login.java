@@ -17,7 +17,7 @@ public class login extends JFrame{
     private JLabel text;
     private Image imagen;
 
-    public String usuario;
+    public static String usuario;
 
     public login(){
         /*Configuracion dela pantalla login*/
