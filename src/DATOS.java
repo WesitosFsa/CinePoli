@@ -63,7 +63,7 @@ public class DATOS extends JFrame {
 
         horarios.setLayout(new GridLayout(0, 1));
         establecerConexion();
-        cargarsalas();
+//        cargarsalas();
 
         // ActionListener para el botón "Reservar Asiento"
         reservarAsientoButton.addActionListener(new ActionListener() {
@@ -86,48 +86,49 @@ public class DATOS extends JFrame {
             JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    private void cargarsalas() {
-        try {
-
-            // Preparar la consulta SQL
-            String sql = "SELECT ps.num_sala, s.horario_sala " +
-                    "FROM peliculas_salas ps " +
-                    "JOIN sala s ON ps.num_sala = s.num_sala " +
-                    "WHERE ps.id_pelicula = (SELECT id_pelicula FROM peliculas WHERE nombre_pelicula = ?)";
-            PreparedStatement statement = conexion.prepareStatement(sql);
-            statement.setString(1, nombrePelicula);
-            // Ejecutar la consulta y obtener el conjunto de resultados
-            ResultSet resultSet = statement.executeQuery();
-            JPanel panelIndividual = new JPanel(new BorderLayout());
-
-            // Establecer el color de fondo del panel
-            panelIndividual.setBackground(new Color(33, 33, 33)); // #212121 en formato RG
-            // Iterar sobre los resultados y agregar cada película a la interfaz gráfica
-            while (resultSet.next()) {
-                String sala = resultSet.getString("num_sala");
-                String horario = resultSet.getString("horario_sala");
-                JButton button = new JButton(sala +"---en el horario de---"+ horario);
-                button.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        JPanel panelIndividual = new JPanel(new BorderLayout());
-                        // Establecer el color de fondo del panel
-                        // Acción al hacer clic en el botón de horario
-                        Reservas reserva = new Reservas();
-                        reserva.setVisible(true);
-                        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(DATOS);frame.dispose();
-                    }
-                });
-                horarios.add(button);
-
-            }
-
-            // Cerrar recursos
-            resultSet.close();
-            statement.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al cargar películas desde la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
+    //Quito esto para que no se quite la conexion con la base de datos
+//    private void cargarsalas() {
+//        try {
+//
+//            // Preparar la consulta SQL
+//            String sql = "SELECT ps.num_sala, s.horario_sala " +
+//                    "FROM peliculas_salas ps " +
+//                    "JOIN sala s ON ps.num_sala = s.num_sala " +
+//                    "WHERE ps.id_pelicula = (SELECT id_pelicula FROM peliculas WHERE nombre_pelicula = ?)";
+//            PreparedStatement statement = conexion.prepareStatement(sql);
+//            statement.setString(1, nombrePelicula);
+//            // Ejecutar la consulta y obtener el conjunto de resultados
+//            ResultSet resultSet = statement.executeQuery();
+//            JPanel panelIndividual = new JPanel(new BorderLayout());
+//
+//            // Establecer el color de fondo del panel
+//            panelIndividual.setBackground(new Color(33, 33, 33)); // #212121 en formato RG
+//            // Iterar sobre los resultados y agregar cada película a la interfaz gráfica
+//            while (resultSet.next()) {
+//                String sala = resultSet.getString("num_sala");
+//                String horario = resultSet.getString("horario_sala");
+//                JButton button = new JButton(sala +"---en el horario de---"+ horario);
+//                button.addActionListener(new ActionListener() {
+//                    @Override
+//                    public void actionPerformed(ActionEvent e) {
+//                        JPanel panelIndividual = new JPanel(new BorderLayout());
+//                        // Establecer el color de fondo del panel
+//                        // Acción al hacer clic en el botón de horario
+//                        Reservas reserva = new Reservas();
+//                        reserva.setVisible(true);
+//                        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(DATOS);frame.dispose();
+//                    }
+//                });
+//                horarios.add(button);
+//
+//            }
+//
+//            // Cerrar recursos
+//            resultSet.close();
+//            statement.close();
+//        } catch (SQLException ex) {
+//            ex.printStackTrace();
+//            JOptionPane.showMessageDialog(null, "Error al cargar películas desde la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//        }
+//    }
 }
