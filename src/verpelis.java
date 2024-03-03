@@ -1,7 +1,5 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.sql.Connection;
@@ -77,6 +75,7 @@ public class verpelis extends JFrame {
 
     private void agregarPelicula() {
         try {
+            int id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la película:"));
             String nombre = JOptionPane.showInputDialog("Ingrese el nombre de la película:");
             String genero = JOptionPane.showInputDialog("Ingrese el género de la película:");
             String descripcion = JOptionPane.showInputDialog("Ingrese la descripción de la película:");
@@ -87,26 +86,27 @@ public class verpelis extends JFrame {
             byte[] imagen = leerFoto(ruta);
 
             // Insertar la película en la base de datos
-            insertarPeliculaEnBaseDatos(nombre, genero, descripcion, director, anio, clasificacion, imagen);
+            insertarPeliculaEnBaseDatos(id, nombre, genero, descripcion, director, anio, clasificacion, imagen);
 
             // Actualizar la tabla con las películas de la base de datos
             cargarPeliculasDesdeBaseDatos();
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "El año debe ser un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El año y el ID deben ser números enteros.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private void insertarPeliculaEnBaseDatos(String nombre, String genero, String descripcion, String director, int anio, String clasificacion,byte[] imagen) {
+    private void insertarPeliculaEnBaseDatos(int id, String nombre, String genero, String descripcion, String director, int anio, String clasificacion, byte[] imagen) {
         try {
-            String sql = "INSERT INTO peliculas (nombre_pelicula, genero, sinopsis, Director, anho, clasificacion, foto_pelicula) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO peliculas (id_pelicula, nombre_pelicula, genero, sinopsis, Director, anho, clasificacion, foto_pelicula) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = conexion.prepareStatement(sql);
-            statement.setString(1, nombre);
-            statement.setString(2, genero);
-            statement.setString(3, descripcion);
-            statement.setString(4, director);
-            statement.setInt(5, anio);
-            statement.setString(6, clasificacion);
-            statement.setBytes(7, imagen);
+            statement.setInt(1, id);
+            statement.setString(2, nombre);
+            statement.setString(3, genero);
+            statement.setString(4, descripcion);
+            statement.setString(5, director);
+            statement.setInt(6, anio);
+            statement.setString(7, clasificacion);
+            statement.setBytes(8, imagen);
             statement.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -239,6 +239,7 @@ public class verpelis extends JFrame {
             return imagen;
         }
     }
+
     private static byte[] leerFoto(String ruta) {
         byte[] imagenBytes = null;
         try {
