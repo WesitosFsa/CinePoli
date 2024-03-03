@@ -27,6 +27,10 @@ public class PELICULAS extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         establecerConexion();
+
+        login user = new login();
+        String usuario = login.usuario;
+
         // Agregar más películas según sea necesario
         verCarteleraButton.addActionListener(new ActionListener() {
             @Override
