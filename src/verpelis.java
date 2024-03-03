@@ -2,6 +2,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -81,7 +83,8 @@ public class verpelis extends JFrame {
             String director = JOptionPane.showInputDialog("Ingrese la director de la película:");
             int anio = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el año de la película:"));
             String clasificacion = JOptionPane.showInputDialog("Ingrese la clasificación de la película:");
-            String imagen = JOptionPane.showInputDialog("Ingrese la ruta de la imagen de la película:");
+            String ruta = JOptionPane.showInputDialog("Ingrese la ruta de la imagen de la película:");
+            byte[] imagen = leerFoto(ruta);
 
             // Insertar la película en la base de datos
             insertarPeliculaEnBaseDatos(nombre, genero, descripcion, director, anio, clasificacion, imagen);
@@ -93,7 +96,7 @@ public class verpelis extends JFrame {
         }
     }
 
-    private void insertarPeliculaEnBaseDatos(String nombre, String genero, String descripcion, String director, int anio, String clasificacion, String imagen) {
+    private void insertarPeliculaEnBaseDatos(String nombre, String genero, String descripcion, String director, int anio, String clasificacion,byte[] imagen) {
         try {
             String sql = "INSERT INTO peliculas (nombre_pelicula, genero, sinopsis, Director, anho, clasificacion, foto_pelicula) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = conexion.prepareStatement(sql);
@@ -103,7 +106,7 @@ public class verpelis extends JFrame {
             statement.setString(4, director);
             statement.setInt(5, anio);
             statement.setString(6, clasificacion);
-            statement.setString(7, imagen);
+            statement.setBytes(7, imagen);
             statement.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -235,5 +238,18 @@ public class verpelis extends JFrame {
         public String getImagen() {
             return imagen;
         }
+    }
+    private static byte[] leerFoto(String ruta) {
+        byte[] imagenBytes = null;
+        try {
+            File imagenFile = new File(ruta);
+            FileInputStream fis = new FileInputStream(imagenFile);
+            imagenBytes = new byte[(int) imagenFile.length()];
+            fis.read(imagenBytes);
+            fis.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return imagenBytes;
     }
 }
