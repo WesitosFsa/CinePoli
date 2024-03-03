@@ -1,6 +1,7 @@
 import javax.swing.*;
 import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileOutputStream;
@@ -22,6 +23,7 @@ public class PantallaReservas  extends JFrame{
     private JLabel Horario;
     private JLabel Costo;
     private JButton regresarButton;
+    private JLabel cinepoli;
 
     /** Constructor de la clase PantallaReservas*/
     PantallaReservas() {
@@ -69,26 +71,39 @@ public class PantallaReservas  extends JFrame{
         /* Ejecuta la creación de la interfaz de usuario en el hilo de despacho de eventos de Swing*/
         SwingUtilities.invokeLater(() -> new PantallaReservas());
     }
-    private void generarPDF() throws Exception {
-        Document document = new Document();
+    private static void generarPDF() throws Exception {
+        // Tamaño específico del documento (por ejemplo, tamaño carta)
+        Document document = new Document(PageSize.LETTER);
+
         PdfWriter.getInstance(document, new FileOutputStream("Factura.pdf"));
         document.open();
 
-        Font fontHeader = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12);
-        Font fontGreen = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12);
-        fontGreen.setColor(0, 128, 0); // Verde
-        Font fontYellow = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12);
-        fontYellow.setColor(255, 255, 0); // Amarillo
-        Font fontOrange = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12);
-        fontOrange.setColor(255, 165, 0); // Anaranjado
+        // Establecer fondo gris
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("Factura.pdf"));
+        document.open();
 
-        document.add(new Paragraph("FACTURA", fontHeader));
-        document.add(new Paragraph("TEST", fontHeader));
+        // Contenido del documento
+        Font fontNormal = FontFactory.getFont(FontFactory.HELVETICA, 12);
+
+        Paragraph title = new Paragraph("Detalle de la pelicula", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16));
+        title.setAlignment(Element.ALIGN_CENTER);
+        document.add(title);
         document.add(Chunk.NEWLINE);
+
+        document.add(new Paragraph("Nombre Cliente: "));
+        document.add(new Paragraph("Correo: "));
+        document.add(new Paragraph("Telefono: "));
+        document.add(new Paragraph("Nombre Pelicula: "));
+        document.add(new Paragraph("Genero: "));
+        document.add(new Paragraph("Numero Sala: "));
+        document.add(new Paragraph("Cantidad de asientos: "));
+        document.add(new Paragraph("Numero de asientos: "));
+        document.add(new Paragraph("Horario: "));
+        document.add(new Paragraph("Costo: "));
+        document.add(Chunk.NEWLINE);
+
+
         document.close();
     }
-
-
-
 
 }
