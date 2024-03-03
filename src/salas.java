@@ -21,6 +21,10 @@ public class salas extends JFrame{
     private JButton menuButton;
     private JLabel HORARIO;
     private JTextField textFieldHORARIO;
+    private JLabel Sala;
+    private JTextField SALA;
+    private JLabel NumSala;
+    private JTextField NUMSALAS;
 
     private List<verpelis.Pelicula> listaPeliculas;
     private Map<String, Salas> salas;
