@@ -75,7 +75,7 @@ public class PantallaReservas extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (true) {
                     try {
-                        generarPDF();
+                        generarPDF(name,correo,telefono,namepeli,generopeli,horario,sala,textoFinal,dinerito);
                         JOptionPane.showMessageDialog(null, "PDF generado exitosamente.");
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -105,7 +105,7 @@ public class PantallaReservas extends JFrame {
         SwingUtilities.invokeLater(() -> new PantallaReservas());
     }
 
-    private void generarPDF() throws Exception {
+    private void generarPDF(String nombre,String correo,String telefono,String nombrepelicula,String Genero,String sala,String nasientos,String Horario,String costo) throws Exception {
         Document document = new Document(PageSize.LETTER);
         PdfWriter.getInstance(document, new FileOutputStream("Factura.pdf"));
         document.open();
@@ -117,29 +117,19 @@ public class PantallaReservas extends JFrame {
         document.add(Chunk.NEWLINE);
 
         Reservas reserva = new Reservas();
-        double totalPagar = reserva.getTotalPagar();
-        String[] asientosReservados = reserva.getAsientosReservados();
 
         // Agregar detalles al PDF
-        document.add(new Paragraph("Nombre Cliente: "));
-        document.add(new Paragraph("Correo: "));
-        document.add(new Paragraph("Telefono: "));
-        document.add(new Paragraph("Nombre Pelicula: "));
-        document.add(new Paragraph("Genero: "));
-        document.add(new Paragraph("Numero Sala: "));
-        document.add(new Paragraph("Cantidad de asientos: "));
-        document.add(new Paragraph("Numero de asientos: "));
-        document.add(new Paragraph("Horario: "));
-        document.add(new Paragraph("Costo: " + totalPagar));
+        document.add(new Paragraph("Nombre Cliente: " + nombre));
+        document.add(new Paragraph("Correo: " + correo));
+        document.add(new Paragraph("Telefono: " + telefono));
+        document.add(new Paragraph("Nombre Pelicula: " + nombrepelicula));
+        document.add(new Paragraph("Genero: " + Genero));
+        document.add(new Paragraph("Numero Sala: " + sala));
+        document.add(new Paragraph("Numero de asientos: " + nasientos));
+        document.add(new Paragraph("Horario: " + Horario));
+        document.add(new Paragraph("Costo: " + costo));
 
         // Asientos reservados
-        StringBuilder asientosStr = new StringBuilder("Asientos seleccionados:\n");
-        for (String asiento : asientosReservados) {
-            if (asiento != null) {
-                asientosStr.append(asiento).append("\n");
-            }
-        }
-        document.add(new Paragraph(asientosStr.toString()));
 
         document.add(Chunk.NEWLINE);
         document.close();
