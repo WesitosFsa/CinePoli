@@ -73,20 +73,24 @@ public class PantallaReservas extends JFrame {
         imprimirButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (true) {
-                    try {
-                        generarPDF(name,correo,telefono,namepeli,generopeli,horario,sala,textoFinal,dinerito);
-                        JOptionPane.showMessageDialog(null, "PDF generado exitosamente.");
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                        JOptionPane.showMessageDialog(null, "Error al generar el PDF.");
+                // Mostrar ventana emergente para confirmar pago
+                int respuesta = JOptionPane.showConfirmDialog(null, "¿Desea efectuar el pago?",
+                        "Confirmar Pago", JOptionPane.YES_NO_OPTION);
+                // Utilizar un bucle for para iterar sobre los botones
+                for (int i = 0; i < 1; i++) {
+                    if (respuesta == JOptionPane.YES_OPTION) {
+                        // Imprimir el PDF si se confirma el pago
+                        try {
+                            generarPDF(name,correo,telefono,namepeli,generopeli,horario,sala,textoFinal,dinerito);
+                            JOptionPane.showMessageDialog(null, "PDF generado exitosamente.");
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                            JOptionPane.showMessageDialog(null, "Error al generar el PDF.");
+                        }
+                    } else {
+                        // Regresar a la pantalla si se cancela el pago
+                        JOptionPane.showMessageDialog(null, "Operación Cancelada.");
                     }
-                    PELICULAS pelis = new PELICULAS();
-                    pelis.setVisible(true);
-                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(panel1);
-                    frame.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos obligatorios.");
                 }
             }
         });
@@ -226,6 +230,3 @@ public class PantallaReservas extends JFrame {
     }
 
 }
-
-
-
