@@ -90,7 +90,7 @@ public class PantallaReservas extends JFrame {
                         try {
                             if (saldresta > pago){
                                 actualizarSaldo(saldo, name);
-                                generarPDF(name,correo,telefono,namepeli,generopeli,horario,sala,textoFinal,dinerito);
+                                generarPDF(name,correo,telefono,namepeli,generopeli,sala,textoFinal,horario,dinerito);
                                 JOptionPane.showMessageDialog(null, "PDF generado exitosamente.");
                             }else{
                                 JOptionPane.showConfirmDialog(null,"El saldo no es suficiente");
