@@ -1,7 +1,6 @@
 import javax.swing.*;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
-import java.math.BigDecimal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileOutputStream;
@@ -72,7 +71,8 @@ public class PantallaReservas extends JFrame {
         int saldo = obtenersaldo(name);
         int pago = (int) Reservas.totalPagar;
         Costo.setText(dinerito);
-        int saldresta = Integer.parseInt(obtenerSaldo(name));
+        int saldresta = obtenersaldo(name);
+
 
 
 
@@ -88,12 +88,12 @@ public class PantallaReservas extends JFrame {
                     if (respuesta == JOptionPane.YES_OPTION) {
                         // Imprimir el PDF si se confirma el pago
                         try {
-                            //if (saldresta > pago){
-                                actualizarSaldo(saldo, name);
-                                generarPDF(name,correo,telefono,namepeli,generopeli,sala,textoFinal,horario,dinerito);
-                                JOptionPane.showMessageDialog(null, "PDF generado exitosamente.");
-                            //}
-
+                            // Convertir el costo a entero
+                            int costoEntero = (int) Math.round(Double.parseDouble(dinerito));
+                            // Actualizar el saldo
+                            actualizarSaldo(costoEntero, name);
+                            generarPDF(name, correo, telefono, namepeli, generopeli, sala, textoFinal, horario, dinerito);
+                            JOptionPane.showMessageDialog(null, "PDF generado exitosamente.");
                         } catch (Exception ex) {
                             ex.printStackTrace();
                             JOptionPane.showMessageDialog(null, "Error al generar el PDF.");
@@ -105,6 +105,7 @@ public class PantallaReservas extends JFrame {
                 }
             }
         });
+
         regresarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -165,7 +166,7 @@ public class PantallaReservas extends JFrame {
         document.close();
 
         // Mostrar el total a pagar y los asientos reservados en los labels correspondientes
-;
+        ;
     }
     private void establecerConexion() {
         try {
