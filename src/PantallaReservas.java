@@ -8,6 +8,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.File;
 /**
  * Clase de pantalla de imprimir factura
  * @author Garzón, Caza, Guaygua
@@ -15,6 +18,7 @@ import java.sql.SQLException;
 public class PantallaReservas extends JFrame {
 
     private JPanel panel1;
+
     private JButton imprimirButton;
     private JLabel NombreCli;
     private JLabel Correo;
@@ -133,53 +137,62 @@ public class PantallaReservas extends JFrame {
     /**
      * Metodo para generar el Pdf
      * */
-    private void generarPDF(String nombre,String correo,String telefono,String nombrepelicula,String Genero,String sala,String nasientos,String Horario,String costo) throws Exception {
-        Document document = new Document(PageSize.LETTER);
-        PdfWriter.getInstance(document, new FileOutputStream("Factura.pdf"));
-        document.open();
-        Font fontNormal = FontFactory.getFont(FontFactory.HELVETICA, 12);
+    private void generarPDF(String nombre, String correo, String telefono, String nombrepelicula, String Genero, String sala, String nasientos, String Horario, String costo) throws Exception {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar PDF");
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos PDF (*.pdf)", "pdf"));
 
-        Paragraph title = new Paragraph("Detalle de la pelicula", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16));
-        title.setAlignment(Element.ALIGN_CENTER);
-        document.add(title);
-        document.add(Chunk.NEWLINE);
+        int userSelection = fileChooser.showSaveDialog(null);
 
-        Reservas reserva = new Reservas();
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            String rutaPDF = fileToSave.getAbsolutePath();
 
-        // Agregar detalles al PDF
-        document.add(new Paragraph("Nombre Cliente: " + nombre));
-        document.add(new Paragraph("Correo: " + correo));
-        document.add(new Paragraph("Telefono: " + telefono));
-        document.add(new Paragraph("Nombre Pelicula: " + nombrepelicula));
-        document.add(new Paragraph("Genero: " + Genero));
-        document.add(new Paragraph("Numero Sala: " + sala));
-        document.add(new Paragraph("Numero de asientos: " + nasientos));
-        document.add(new Paragraph("Horario: " + Horario));
-        document.add(new Paragraph("Costo: " + costo));
+            Document document = new Document(PageSize.LETTER);
+            PdfWriter.getInstance(document, new FileOutputStream(rutaPDF));
+            document.open();
+            Font fontNormal = FontFactory.getFont(FontFactory.HELVETICA, 12);
 
-        try {
-            String sqlInsert = "INSERT INTO Facturas (nom_pelicula, nom_usuario, horario, asientos, costo_boleto) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement statementInsert = conexion.prepareStatement(sqlInsert);
-            statementInsert.setString(1, nombrepelicula);
-            statementInsert.setString(2, nombre);
-            statementInsert.setString(3, Horario);
-            statementInsert.setString(4, nasientos);
-            int costoEntero = (int) Math.round(Double.parseDouble(costo));
-            statementInsert.setInt(5, costoEntero); // Convertir el costo a BigDecimal antes de insertarlo
-            statementInsert.executeUpdate();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al insertar datos en la tabla de facturas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            Paragraph title = new Paragraph("Detalle de la película", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16));
+            title.setAlignment(Element.ALIGN_CENTER);
+            document.add(title);
+            document.add(Chunk.NEWLINE);
+
+            // Agregar detalles al PDF
+            document.add(new Paragraph("Nombre Cliente: " + nombre));
+            document.add(new Paragraph("Correo: " + correo));
+            document.add(new Paragraph("Teléfono: " + telefono));
+            document.add(new Paragraph("Nombre Película: " + nombrepelicula));
+            document.add(new Paragraph("Género: " + Genero));
+            document.add(new Paragraph("Número Sala: " + sala));
+            document.add(new Paragraph("Número de asientos: " + nasientos));
+            document.add(new Paragraph("Horario: " + Horario));
+            document.add(new Paragraph("Costo: " + costo));
+
+            try {
+                String sqlInsert = "INSERT INTO Facturas (nom_pelicula, nom_usuario, horario, asientos, costo_boleto) VALUES (?, ?, ?, ?, ?)";
+                PreparedStatement statementInsert = conexion.prepareStatement(sqlInsert);
+                statementInsert.setString(1, nombrepelicula);
+                statementInsert.setString(2, nombre);
+                statementInsert.setString(3, Horario);
+                statementInsert.setString(4, nasientos);
+                int costoEntero = (int) Math.round(Double.parseDouble(costo));
+                statementInsert.setInt(5, costoEntero); // Convertir el costo a BigDecimal antes de insertarlo
+                statementInsert.executeUpdate();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error al insertar datos en la tabla de facturas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            // Asientos reservados
+
+            document.add(Chunk.NEWLINE);
+            document.close();
+
+            // Mostrar el total a pagar y los asientos reservados en los labels correspondientes
         }
-
-        // Asientos reservados
-
-        document.add(Chunk.NEWLINE);
-        document.close();
-
-        // Mostrar el total a pagar y los asientos reservados en los labels correspondientes
-        ;
     }
+
     /**
      * Metodo que conecto con mysql
      * */
