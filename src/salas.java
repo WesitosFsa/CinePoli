@@ -256,7 +256,6 @@ public class salas extends JFrame {
     private JTextField mostrarHorario;
     private JTextField mostrarNumsala;
     private JTextField mostrarDia;
-    private JTextField numsala;
 
     private List<verpelis.Pelicula> listaPeliculas;
     private Map<Integer, SalasInfo> salas;
