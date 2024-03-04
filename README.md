@@ -90,6 +90,11 @@ Ejecutar el programa: Creamos un artifact un .jar tienes que tener jdk instalado
 
 Ejecuta el programa con la conexion de bd en la nube
 -
+![image](https://github.com/WesitosFsa/CinePoli/assets/137083225/11681efa-768a-4bfd-b829-a3010f6d7725)
+
+Las credenciales solo se cambian un solo .java que es en el main
+-
+![image](https://github.com/WesitosFsa/CinePoli/assets/137083225/900b58ae-32f8-4c2e-9c7a-9403d6678ec3)
 
 --------------------------------------
 Nombre de los integrantes de grupo
