@@ -4,7 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 
-public class login extends JFrame{
+/** Clase principal login que extiende de JFrame */
+public class login extends JFrame {
+    /** Componentes de la interfaz de usuario */
     private JPanel panel1;
     private JPanel LOGIN;
     private JButton Ingresar;
@@ -17,24 +19,17 @@ public class login extends JFrame{
     private JLabel text;
     private Image imagen;
 
-    //public static String usuario;
-    //usuario = nombre.getText();
-    public login(){
-        /*Configuracion dela pantalla login*/
+    /** Constructor de la clase login */
+    public login() {
+        /* Configuración de la pantalla login */
         setContentPane(panel1);
-        setSize(800,500);
+        setSize(800, 500);
         setResizable(false);
         setLocationRelativeTo(null);
         setUndecorated(true);
         setVisible(true);
 
-
-        /** Action listener de la pantalla login
-         * Ingresar: Busca dentro de la bd el usuario y contraseña que ha ingresado en el textfiel nombre y passwordfield contraseña
-         * Registrarse: Le enviara a la pantalla de resgistro en dode colocara la informacion pertinente
-         * Salir: cerrará el programa con un JOptionpane
-         */
-
+        /** Action listener de la pantalla login */
         Ingresar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -70,54 +65,22 @@ public class login extends JFrame{
                 frame.dispose();
             }
         });
+
         salir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int opcion = JOptionPane.showConfirmDialog(null,
-                                                "¿Quieres cerrar la app?",
-                                                "Salir de la app",JOptionPane.YES_NO_OPTION);
+                        "¿Quieres cerrar la app?",
+                        "Salir de la app",JOptionPane.YES_NO_OPTION);
                 if (opcion == JOptionPane.YES_OPTION) {
-                    //JOptionPane.showMessageDialog(null, "Cerrando la aplicación");
                     dispose(); // Esto permite cerrar la ventana la ventana
                     System.exit(0); // Esto permite salir de la aplicación
                 }
             }
         });
     }
-    /*private boolean validarCredenciales(String nombreUsuario, String password) {
-        // Lógica para validar las credenciales en la base de datos
-        Connection conexion = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
 
-        try {
-            Main main = new Main();
-            // Establecer conexión
-            conexion = main.establecerConexion();
-
-            // Consulta SQL para verificar las credenciales
-            String consulta = "SELECT * FROM clientes WHERE nom_usuario = ? AND contra_usuario = ?";
-            preparedStatement = conexion.prepareStatement(consulta);
-            preparedStatement.setString(1, nombreUsuario);
-            preparedStatement.setString(2, password);
-            resultSet = preparedStatement.executeQuery();
-
-            // Si se encuentra algún resultado, las credenciales son válidas
-            return resultSet.next();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            return false;
-        } finally {
-            try {
-                // Cerrar recursos
-                if (resultSet != null) resultSet.close();
-                if (preparedStatement != null) preparedStatement.close();
-                if (conexion != null) conexion.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-    }*/
+    /** Método para obtener el ID de rol del usuario */
     private int obtenerIdRol(String nombreUsuario, String password) {
         Connection conexion = null;
         PreparedStatement preparedStatement = null;
@@ -152,5 +115,4 @@ public class login extends JFrame{
             }
         }
     }
-
 }

@@ -112,3 +112,6 @@ public class PantallaReservas extends JFrame {
         Costo.setText("$" + totalPagar);
     }
 }
+
+
+
