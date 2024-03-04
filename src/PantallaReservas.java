@@ -1,7 +1,7 @@
 import javax.swing.*;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
-
+import java.math.BigDecimal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileOutputStream;
@@ -70,7 +70,6 @@ public class PantallaReservas extends JFrame {
         String dinerito = Reservas.Dineropublico;
         Costo.setText(dinerito);
         int saldo = obtenersaldo(name);
-        int resta = Integer.parseInt(dinerito);
 
 
 
@@ -136,6 +135,22 @@ public class PantallaReservas extends JFrame {
         document.add(new Paragraph("Numero de asientos: " + nasientos));
         document.add(new Paragraph("Horario: " + Horario));
         document.add(new Paragraph("Costo: " + costo));
+
+        try {
+            String sqlInsert = "INSERT INTO Facturas (nom_pelicula, nom_usuario, horario, asientos, costo_boleto) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement statementInsert = conexion.prepareStatement(sqlInsert);
+            statementInsert.setString(1, nombrepelicula);
+            statementInsert.setString(2, nombre);
+            statementInsert.setString(3, Horario);
+            statementInsert.setString(4, nasientos);
+            double costoDecimal = Double.parseDouble(costo);
+// Establecer el parámetro en la consulta preparada
+            statementInsert.setDouble(5, costoDecimal); // Convertir el costo a BigDecimal antes de insertarlo
+            statementInsert.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al insertar datos en la tabla de facturas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
 
         // Asientos reservados
 
