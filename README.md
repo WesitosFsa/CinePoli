@@ -32,6 +32,24 @@ Pantalla Cajero:
 
 -.Recoje los datos de la bd y los imprime dentro del Jpanel y imprime una pelicula que nos redirecciona a informacion de la pelicula
 -
+![image](https://github.com/WesitosFsa/CinePoli/assets/137083225/fa97cfc5-4661-49fc-9f9b-6c6f53173fe2)
+
+.-Dentro de esta tabla se puede ver informacion y realizar la respectiva reserva
+-
+![image](https://github.com/WesitosFsa/CinePoli/assets/137083225/3708617f-ebe1-4a5a-bb5e-a9a796eba3ad)
+
+-.-Selecciona reserva si seleccionas sala
+-
+![image](https://github.com/WesitosFsa/CinePoli/assets/137083225/6e1e4239-7fcc-4c82-9de7-0f75a61e1850)
+
+-.-Seleccionamos que asientos reservamos y efectuamos el pago
+-
+![image](https://github.com/WesitosFsa/CinePoli/assets/137083225/7730d2a0-da6e-4cd4-9ce2-7c5494a78b45)
+
+.-efectuamos el pago
+-
+![image](https://github.com/WesitosFsa/CinePoli/assets/137083225/c36a8102-b695-43b4-a240-c0e8607c5c64)
+
 Pantalla Administrador
 -
 ![image](https://github.com/WesitosFsa/CinePoli/assets/137083225/5ebdb38b-5fe7-4d11-ac15-5f169bc890d7)
@@ -60,23 +78,6 @@ Explicacion Pantalla administrador habra 3 botones
 
 .-Genera un estadistica recojiendo los datos de factura ve que peliculas venden mas y en que horarios se venden mas boletos
 -
-![image](https://github.com/WesitosFsa/CinePoli/assets/137083225/fa97cfc5-4661-49fc-9f9b-6c6f53173fe2)
-
-.-Dentro de esta tabla se puede ver informacion y realizar la respectiva reserva
--
-![image](https://github.com/WesitosFsa/CinePoli/assets/137083225/3708617f-ebe1-4a5a-bb5e-a9a796eba3ad)
-
--.-Selecciona reserva si seleccionas sala
--
-![image](https://github.com/WesitosFsa/CinePoli/assets/137083225/6e1e4239-7fcc-4c82-9de7-0f75a61e1850)
-
--.-Seleccionamos que asientos reservamos y efectuamos el pago
--
-![image](https://github.com/WesitosFsa/CinePoli/assets/137083225/7730d2a0-da6e-4cd4-9ce2-7c5494a78b45)
-
-.-efectuamos el pago
--
-![image](https://github.com/WesitosFsa/CinePoli/assets/137083225/c36a8102-b695-43b4-a240-c0e8607c5c64)
 
 .-nos imprime una factura en la que decidimos si queremos pagar o no
 -
