@@ -24,7 +24,7 @@ public class Reservas extends JFrame {
     public static double totalPagar = 0.0;
     private JButton[] buttons;
     private List<JButton> asientosReservados = new ArrayList<>();
-
+    public static String Dineropublico;
     public static String asientospublicos[];
     public static final String[] ASIENTOS_RESERVADOS = new String[72]; // Arreglo para almacenar los asientos seleccionados
 
@@ -76,6 +76,7 @@ public class Reservas extends JFrame {
                             clickedButton.setBackground(Color.GREEN);
                             totalPagar += 7.0;
                             Dinero.setText("$" + totalPagar);
+                            Dineropublico = Double.toString(totalPagar);
                             asientosReservados.add(clickedButton);
                             ASIENTOS_RESERVADOS[asientosReservados.size() - 1] = clickedButton.getText(); // Almacenar el asiento seleccionado
                         }
@@ -112,6 +113,9 @@ public class Reservas extends JFrame {
 
                 // Mostrar el total a pagar
                 JOptionPane.showMessageDialog(null, "Total a pagar: $" + totalPagar, "Total a Pagar", JOptionPane.INFORMATION_MESSAGE);
+
+                // Asignar los asientos reservados a la variable asientospublicos
+                asientospublicos = ASIENTOS_RESERVADOS;
 
                 // Limpiar el total a pagar y el label
                 totalPagar = 0.0;

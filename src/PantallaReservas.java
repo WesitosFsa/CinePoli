@@ -52,6 +52,21 @@ public class PantallaReservas extends JFrame {
         Horario.setText(horario);
         String sala = Reser.salapublica;
         NumSala.setText(sala);
+        String[] asientosReservados = Reservas.asientospublicos;
+        StringBuilder textoAsientos = new StringBuilder();
+        for (String asiento : asientosReservados) {
+            if (asiento != null) {
+                textoAsientos.append(asiento).append(", "); // Puedes cambiar la coma por cualquier otro separador si prefieres
+            }
+        }
+        // Eliminar la última coma y espacio extra si hay asientos reservados
+        if (textoAsientos.length() > 0) {
+            textoAsientos.setLength(textoAsientos.length() - 2);
+        }
+        String textoFinal = textoAsientos.toString();
+        NumerodeAsiento.setText(textoFinal);
+        String dinerito = Reservas.Dineropublico;
+        Costo.setText(dinerito);
 
 
 
