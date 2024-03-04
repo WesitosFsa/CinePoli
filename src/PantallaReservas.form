@@ -222,7 +222,7 @@
                   <text value="Costo"/>
                 </properties>
               </component>
-              <component id="abcfc" class="javax.swing.JButton" binding="imprimirButton" default-binding="true">
+              <component id="abcfc" class="javax.swing.JButton" binding="imprimirButton">
                 <constraints>
                   <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -230,7 +230,7 @@
                   <background color="-15645041"/>
                   <font name="Century Gothic" size="15" style="1"/>
                   <foreground color="-393233"/>
-                  <text value="Imprimir"/>
+                  <text value="Pagar"/>
                 </properties>
               </component>
               <component id="3a78f" class="javax.swing.JButton" binding="regresarButton" default-binding="true">
