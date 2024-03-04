@@ -175,11 +175,5 @@ public class Reser extends JFrame{
             }
         });
     }
-    /**
-     * Método principal para iniciar la aplicación
-     */
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(Reser::new);
-    }
 }
 

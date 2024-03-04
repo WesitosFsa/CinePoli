@@ -138,7 +138,4 @@ public class Reservas extends JFrame {
         return ASIENTOS_RESERVADOS;
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new Reservas());
-    }
 }

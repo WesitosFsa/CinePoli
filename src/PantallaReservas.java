@@ -119,10 +119,6 @@ public class PantallaReservas extends JFrame {
 
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new PantallaReservas());
-    }
-
     private void generarPDF(String nombre,String correo,String telefono,String nombrepelicula,String Genero,String sala,String nasientos,String Horario,String costo) throws Exception {
         Document document = new Document(PageSize.LETTER);
         PdfWriter.getInstance(document, new FileOutputStream("Factura.pdf"));
