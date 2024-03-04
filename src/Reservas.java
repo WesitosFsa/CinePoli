@@ -21,10 +21,10 @@ public class Reservas extends JFrame {
     private JPanel JpanelAsientos;
 
     private JLabel Dinero;
-    private double totalPagar = 0.0;
+    public static double totalPagar = 0.0;
     private JButton[] buttons;
     private List<JButton> asientosReservados = new ArrayList<>();
-    private static final String[] ASIENTOS_RESERVADOS = new String[81]; // Arreglo para almacenar los asientos seleccionados
+    public static final String[] ASIENTOS_RESERVADOS = new String[72]; // Arreglo para almacenar los asientos seleccionados
 
     Reservas() {
         super("Reservas");

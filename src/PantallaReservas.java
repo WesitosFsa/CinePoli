@@ -32,6 +32,9 @@ public class PantallaReservas extends JFrame {
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+        NumerodeAsiento.setText(Reservas.ASIENTOS_RESERVADOS[81]);
+        String Totalpago = String.valueOf(Reservas.totalPagar);
+        Costo.setText(Totalpago);
 
         imprimirButton.addActionListener(new ActionListener() {
             @Override
@@ -108,8 +111,7 @@ public class PantallaReservas extends JFrame {
         document.close();
 
         // Mostrar el total a pagar y los asientos reservados en los labels correspondientes
-        NumerodeAsiento.setText(asientosStr.toString());
-        Costo.setText("$" + totalPagar);
+;
     }
 }
 

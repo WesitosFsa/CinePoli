@@ -17,8 +17,8 @@ public class Reser extends JFrame{
     private JButton[] Salas;
     private List<JButton> asientosReservados = new ArrayList<>();
     private boolean salaSeleccionada = false;
-    private static final String HORA;
-    private static final String SALA;
+    public static final String HORA;
+    public static final String SALA;
 
     static {
         // Conectar a la base de datos y obtener las salas
