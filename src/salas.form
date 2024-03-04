@@ -203,7 +203,7 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <foreground color="-459777"/>
+                      <foreground color="-16777216"/>
                     </properties>
                   </component>
                   <component id="e28af" class="javax.swing.JTextField" binding="mostrarHorario">
@@ -213,7 +213,7 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <foreground color="-459777"/>
+                      <foreground color="-16777216"/>
                     </properties>
                   </component>
                   <component id="50d8c" class="javax.swing.JTextField" binding="mostrarNumsala">
@@ -223,7 +223,7 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <foreground color="-459777"/>
+                      <foreground color="-16777216"/>
                     </properties>
                   </component>
                   <component id="d9bdb" class="javax.swing.JLabel" binding="Dia">
@@ -241,7 +241,7 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <foreground color="-459777"/>
+                      <foreground color="-16777216"/>
                     </properties>
                   </component>
                   <component id="bf283" class="javax.swing.JTextField" binding="numsala">

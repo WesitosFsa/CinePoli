@@ -256,6 +256,8 @@ public class salas extends JFrame {
     private JTextField mostrarDia;
     private JTextField numsala;
 
+
+
     private List<verpelis.Pelicula> listaPeliculas;
     private Map<Integer, SalasInfo> salas;
 
@@ -274,7 +276,7 @@ public class salas extends JFrame {
         salas = new HashMap<>();
         establecerConexion();
 
-// Configuración de ActionListener para el botón "Ingresar"
+        // Configuración de ActionListener para el botón "Ingresar"
         ingresarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -312,13 +314,10 @@ public class salas extends JFrame {
                 try {
                     int idPelicula = Integer.parseInt(textFieldIDPELICULA.getText()); // Se obtiene la ID de la película desde el campo textFieldIDPELICULA
 
-                    // Verificar si la sala con la película existe en el mapa de salas
-                    if (salas.containsKey(idPelicula)) {
-                        SalasInfo sala = salas.get(idPelicula);
-                        sala.actualizarInfo(sala.getIdPelicula(), sala.getHorario(), sala.getDia());
-                    } else {
-                        JOptionPane.showMessageDialog(null, "No se encontró información para la película con ID: " + idPelicula, "Error", JOptionPane.ERROR_MESSAGE);
-                    }
+                    String Nombrepeli = obtenerNombrePelicula(idPelicula);
+                    String Horarios = obtenerHorario(idPelicula);
+                    mostrarPelicula.setText(Nombrepeli);
+                    mostrarHorario.setText(Horarios);
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Ingrese un número válido para la ID de la película.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -360,13 +359,82 @@ public class salas extends JFrame {
 
     // Método para obtener el nombre de la película según el ID
     private String obtenerNombrePelicula(int idPelicula) {
-        // Buscar la película en la lista de películas
-        for (verpelis.Pelicula pelicula : listaPeliculas) {
-            if (pelicula.getId() == idPelicula) {
-                return pelicula.getNombre();
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
+        try {
+            // Preparar la consulta SQL con un filtro por nombre de película
+            String sql = "SELECT nombre_pelicula FROM peliculas WHERE id_pelicula = ?";
+            statement = conexion.prepareStatement(sql);
+            statement.setInt(1, idPelicula); // Establecer el ID DE PELICULA COMO PARAMETRO
+
+            // Ejecutar la consulta y obtener el resultado
+            resultSet = statement.executeQuery();
+
+            // Verificar si hay resultados
+            if (resultSet.next()) {
+                // Obtener la sinopsis de la película desde la columna 'sinopsis'
+                String nombrepelicula = resultSet.getString("nombre_pelicula");
+                return nombrepelicula;
+            } else {
+                // Si no hay resultados, devolver un mensaje indicando que la película no fue encontrada
+                return "El '" + idPelicula + "' no fue encontrada en la base de datos.";
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al obtener información de la película desde la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        } finally {
+            // Cerrar recursos
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
         }
-        return "Nombre no encontrado";
+    }
+    private String obtenerHorario(int idPelicula) {
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
+        try {
+            // Preparar la consulta SQL con un filtro por nombre de película
+            String sql = "SELECT Horario_Sala FROM sala WHERE id_pelicula = ?";
+            statement = conexion.prepareStatement(sql);
+            statement.setInt(1, idPelicula); // Establecer el ID DE PELICULA COMO PARAMETRO
+
+            // Ejecutar la consulta y obtener el resultado
+            resultSet = statement.executeQuery();
+
+            // Verificar si hay resultados
+            if (resultSet.next()) {
+                // Obtener la sinopsis de la película desde la columna 'sinopsis'
+                String horario = resultSet.getString("Horario_Sala");
+                return horario;
+            } else {
+                // Si no hay resultados, devolver un mensaje indicando que la película no fue encontrada
+                return "El '" + idPelicula + "' no fue encontrada en la base de datos.";
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al obtener información de la película desde la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        } finally {
+            // Cerrar recursos
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
     // Método para cargar las salas desde la base de datos al iniciar la aplicación
