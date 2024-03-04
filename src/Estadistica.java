@@ -16,9 +16,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
-/** Clase principal Estadistica que extiende de JFrame */
+/**
+ * Clase principal Estadistica que extiende de JFrame
+ * @author Matea Garzón
+ * */
 public class Estadistica extends JFrame {
-    /** Componentes de la interfaz de usuario */
+    /**
+     * Componentes de la interfaz de usuario
+     * */
     private JPanel panel1;
     private JButton ventas;
     private JButton salasOcupadasButton;
@@ -30,10 +35,14 @@ public class Estadistica extends JFrame {
     private java.util.List<String> horarios = new ArrayList<>();
     private java.util.List<Integer> costoBoletos2 = new ArrayList<>();
 
-    /** Constructor de la clase Estadistica */
+    /**
+     * Constructor de la clase Estadistica
+     * */
     Estadistica() {
 
-        /** Configuración de la ventana principal */
+        /**
+         * Configuración de la ventana principal
+         * */
         super("Estadisticas");
         setContentPane(panel1);
         setSize(800, 500);
@@ -44,9 +53,13 @@ public class Estadistica extends JFrame {
         setVisible(true);
         establecerConexion();
 
-        /** Acción cuando se hace clic en el botón "ventas" */
+        /**
+         * Acción cuando se hace clic en el botón "ventas"
+         * */
         ventas.addActionListener(new ActionListener() {
-            /** Método para cargar los datos de ventas */
+            /**
+             *  Método para cargar los datos de ventas
+             *  */
             @Override
             public void actionPerformed(ActionEvent e) {
                 cargarventas();
@@ -102,9 +115,13 @@ public class Estadistica extends JFrame {
             }
         });
 
-        /** Acción cuando se hace clic en el botón "salasOcupadasButton" */
+        /**
+         *  Acción cuando se hace clic en el botón "salasOcupadasButton"
+         *  */
         salasOcupadasButton.addActionListener(new ActionListener() {
-            /** Método para cargar los datos de personas */
+            /**
+             * Método para cargar los datos de personas
+             * */
             @Override
             public void actionPerformed(ActionEvent e) {
                 cargarpersonas();
@@ -160,7 +177,9 @@ public class Estadistica extends JFrame {
             }
         });
 
-        /** Acción cuando se hace clic en el botón "salirButton" */
+        /**
+         * Acción cuando se hace clic en el botón "salirButton"
+         * */
         menuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -173,7 +192,9 @@ public class Estadistica extends JFrame {
 
     }
 
-    /** Método para establecer la conexión a la base de datos */
+    /**
+     * Método para establecer la conexión a la base de datos
+     * */
     private void establecerConexion() {
         try {
             Main conexionbd = new Main();
@@ -184,7 +205,9 @@ public class Estadistica extends JFrame {
         }
     }
 
-    /** Método para cargar los datos de ventas */
+    /**
+     * Método para cargar los datos de ventas
+     * */
     private void cargarventas() {
         try {
             String sql = "select nom_pelicula, costo_boleto from Facturas";
@@ -212,7 +235,9 @@ public class Estadistica extends JFrame {
         }
     }
 
-    /** Método para cargar los datos de personas */
+    /**
+     *  Método para cargar los datos de personas
+     *  */
     private void cargarpersonas() {
         try {
             String sql = "select horario, costo_boleto from Facturas";

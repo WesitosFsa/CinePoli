@@ -6,6 +6,7 @@ import java.sql.*;
 
  /**
  * Clasa frame que imprime los datos de la pelicula
+  * @author Mateo Garzón
  */
 public class DATOS extends JFrame {
     // Componentes de la interfaz de usuario

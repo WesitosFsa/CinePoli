@@ -4,9 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 
-/** Clase principal login que extiende de JFrame */
+/**
+ * Clase principal login que extiende de JFrame
+ * @author Luis Guaygua
+ * */
 public class login extends JFrame {
-    /** Componentes de la interfaz de usuario */
+    /**
+     *  Componentes de la interfaz de usuario
+     *  */
     private JPanel panel1;
     private JPanel LOGIN;
     private JButton Ingresar;
@@ -21,7 +26,9 @@ public class login extends JFrame {
 
     public static String NombreUsuario;
 
-    /** Constructor de la clase login */
+    /**
+     *  Constructor de la clase login
+     *  */
     public login() {
         /* Configuración de la pantalla login */
         setContentPane(panel1);
@@ -31,7 +38,9 @@ public class login extends JFrame {
         setUndecorated(true);
         setVisible(true);
 
-        /** Action listener de la pantalla login */
+        /**
+         * Action listener de la pantalla login
+         * */
         Ingresar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -58,7 +67,9 @@ public class login extends JFrame {
                 }
             }
         });
-
+        /**
+         * Action listener para el boton de registrarse
+         * */
         registrarse.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -69,6 +80,9 @@ public class login extends JFrame {
             }
         });
 
+        /**
+         * Action listener para el boton de salir
+         * */
         salir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -83,7 +97,9 @@ public class login extends JFrame {
         });
     }
 
-    /** Método para obtener el ID de rol del usuario */
+    /**
+     * Método para obtener el ID de rol del usuario
+     * */
     private int obtenerIdRol(String nombreUsuario, String password) {
         Connection conexion = null;
         PreparedStatement preparedStatement = null;

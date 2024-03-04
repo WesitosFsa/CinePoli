@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * La clase `Reser` representa la interfaz de reserva de salas.
  * Extiende JFrame y contiene elementos gráficos para seleccionar y reservar salas de cine.
+ * @author Eduardo Caza
  */
 public class Reser extends JFrame{
 

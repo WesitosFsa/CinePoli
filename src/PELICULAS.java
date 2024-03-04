@@ -8,9 +8,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 /**
  * Clase PELICULAS que extiende de JFrame
+ * @author Mateo Garzón
+ * @author Eduardo Caza
  */
 public class PELICULAS extends JFrame {
-    /** Componentes de la interfaz de usuario */
+    /**
+     * Componentes de la interfaz de usuario
+     * */
     private JPanel PELICULAS;
     private JButton verCarteleraButton;
     private JButton cerrarSesionButton;
@@ -20,7 +24,9 @@ public class PELICULAS extends JFrame {
     private Connection conexion;
     public int cargas = 0;
 
-    /** Constructor de la clase peliculas */
+    /**
+     * Constructor de la clase peliculas
+     * */
     public PELICULAS() {
         super("Reservas");
         setContentPane(PELICULAS);
@@ -48,8 +54,10 @@ public class PELICULAS extends JFrame {
 
             }
         });
+        /**
+         * Accion para cerrar Sesion
+         * */
         cerrarSesionButton.addActionListener(new ActionListener() {
-            /** Accion para cerrar Sesion */
             @Override
             public void actionPerformed(ActionEvent e) {
                 int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que quieres cerrar sesión?", "Cerrar Sesión", JOptionPane.YES_NO_OPTION);
@@ -65,7 +73,9 @@ public class PELICULAS extends JFrame {
             }
         });
     }
-    /** cargarPeliculasDesdeBD() selecciona la pelicula y la foto para imprimirla */
+    /**
+     *  cargarPeliculasDesdeBD() selecciona la pelicula y la foto para imprimirla
+     *  */
     private void cargarPeliculasDesdeBD() {
         try {
 
@@ -96,7 +106,9 @@ public class PELICULAS extends JFrame {
             JOptionPane.showMessageDialog(null, "Error al cargar películas desde la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    /** agregarPelicula(String titulo, ImageIcon imagen) agrega la peliculas al panel */
+    /**
+     * agregarPelicula(String titulo, ImageIcon imagen) agrega la peliculas al panel
+     * */
     private void agregarPelicula(String titulo, ImageIcon imagen) {
         // Crear un panel para la película individual
         JPanel panelIndividual = new JPanel(new BorderLayout());
@@ -153,7 +165,9 @@ public class PELICULAS extends JFrame {
         revalidate(); // Revalidar el layout del contenedor
         repaint();   // Volver a pintar los componentes
     }
-    /** Establece la conexion con el main para las credenciales*/
+    /**
+     * Establece la conexion con el main para las credenciales
+     * */
     private void establecerConexion() {
         try {
             Main conexionbd = new Main();
@@ -163,7 +177,9 @@ public class PELICULAS extends JFrame {
             JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    /**obtenerclasificacion(String nombrePelicula) obtiene el id */
+    /**
+     * obtenerclasificacion(String nombrePelicula) obtiene el id
+     * */
     private String obtenerclasificacion(String nombrePelicula) {
         ResultSet resultSet = null;
         PreparedStatement statement = null;
@@ -203,7 +219,9 @@ public class PELICULAS extends JFrame {
             }
         }
     }
-    /**obtenergenero(String nombrePelicula) obtiene el genero*/
+    /**
+     * obtenergenero(String nombrePelicula) obtiene el genero
+     * */
     private String obtenergenero(String nombrePelicula) {
         ResultSet resultSet = null;
         PreparedStatement statement = null;
@@ -243,7 +261,9 @@ public class PELICULAS extends JFrame {
             }
         }
     }
-    /**obteneranho(String nombrePelicula) obtiene el anho*/
+    /**
+     * obteneranho(String nombrePelicula) obtiene el anho
+     * */
     private String obteneranho(String nombrePelicula) {
         ResultSet resultSet = null;
         PreparedStatement statement = null;
@@ -283,7 +303,9 @@ public class PELICULAS extends JFrame {
             }
         }
     }
-    /**obtenersinopsis(String nombrePelicula) obtiene la sinopsis*/
+    /**
+     * obtenersinopsis(String nombrePelicula) obtiene la sinopsis
+     * */
     private String obtenersinopsis(String nombrePelicula) {
         ResultSet resultSet = null;
         PreparedStatement statement = null;
@@ -324,7 +346,9 @@ public class PELICULAS extends JFrame {
             }
         }
     }
-    /**obtenerdirector(String nombrePelicula) obtiene el director*/
+    /**
+     * obtenerdirector(String nombrePelicula) obtiene el director
+     * */
     private String obtenerdirector(String nombrePelicula) {
         ResultSet resultSet = null;
         PreparedStatement statement = null;
@@ -364,7 +388,9 @@ public class PELICULAS extends JFrame {
             }
         }
     }
-    /**agrega saltos en el text field de datos para una impresion mas detallada*/
+    /**
+     * agrega saltos en el text field de datos para una impresion mas detallada
+     * */
     private String agregarSaltosDeLinea(String sinopsis) {
         StringBuilder sinopsisConSaltos = new StringBuilder();
         String[] palabras = sinopsis.split("\\s+"); // Dividir la sinopsis en palabras
@@ -382,5 +408,4 @@ public class PELICULAS extends JFrame {
 
         return sinopsisConSaltos.toString();
     }
-
 }

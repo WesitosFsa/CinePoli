@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 /**
  * Clase que representa la interfaz gráfica para administrar información de salas y proyecciones de películas.
+ * @author Lenin Proaño
  */
 public class salas extends JFrame {
     private JPanel panel1;

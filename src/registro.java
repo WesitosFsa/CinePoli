@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 /**
  * La clase `registro` representa la interfaz de registro de usuarios.
  * Extiende JFrame y contiene campos de entrada y botones para el registro.
+ * @author Luis Guaygua
  */
 public class registro extends JFrame {
 

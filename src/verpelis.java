@@ -12,6 +12,7 @@ import java.util.prefs.Preferences;
 
 /**
  * Esta clase proporciona una interfaz gráfica para visualizar y administrar películas.
+ * @author Lenin Proaño
  */
 public class verpelis extends JFrame {
     // Componentes de la interfaz gráfica

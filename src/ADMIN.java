@@ -4,6 +4,8 @@ import java.awt.event.ActionListener;
 
 /**
  * Clase ADMIN que extiende de JFrame
+ * @author Lenin Proaño
+ * @version 1.0
  */
 public class ADMIN extends JFrame {
     // Panel principal

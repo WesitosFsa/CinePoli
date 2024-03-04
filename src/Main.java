@@ -5,6 +5,8 @@ import java.sql.SQLException;
 
 /**
  * Clase principal Estadistica que extiende de JFrame
+ * @author  Luis Guaygua
+ * @version 1.0
  */
 public class Main extends JFrame {
 

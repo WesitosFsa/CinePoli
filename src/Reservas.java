@@ -4,7 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * La clase `Reser` representa la interfaz de reserva de salas.
+ * Extiende JFrame y contiene elementos gráficos para seleccionar y reservar salas de cine.
+ * @author Eduardo Caza
+ * @author Mateo Garzón
+ */
 public class Reservas extends JFrame {
 
     public static final Color COLOR_RESERVADO = new Color(147, 168, 172);
@@ -27,7 +32,9 @@ public class Reservas extends JFrame {
     public static String Dineropublico;
     public static String asientospublicos[];
     public static final String[] ASIENTOS_RESERVADOS = new String[72]; // Arreglo para almacenar los asientos seleccionados
-
+    /**
+     * Metodo constructor de reservas
+     */
     Reservas() {
         super("Reservas");
         setContentPane(panel1);
@@ -85,6 +92,9 @@ public class Reservas extends JFrame {
             });
         }
 
+        /**
+         * Action listener boton salir
+         */
         SALIRButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -94,7 +104,9 @@ public class Reservas extends JFrame {
                 frame.dispose();
             }
         });
-
+        /**
+         * Action Listener del boton continuar
+         */
         continuarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -130,10 +142,15 @@ public class Reservas extends JFrame {
             }
         });
     }
+    /**
+     * Metodo get para totalpagar
+     */
     public double getTotalPagar() {
         return totalPagar;
     }
-
+    /**
+     * Metodo get para el string asientos reservados
+     */
     public String[] getAsientosReservados() {
         return ASIENTOS_RESERVADOS;
     }

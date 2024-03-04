@@ -8,7 +8,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+/**
+ * Clase de pantalla de imprimir factura
+ * @author Garzón, Caza, Guaygua
+ * */
 public class PantallaReservas extends JFrame {
 
     private JPanel panel1;
@@ -25,6 +28,10 @@ public class PantallaReservas extends JFrame {
     private JButton regresarButton;
     private JLabel cinepoli;
     private Connection conexion;
+
+    /**
+     * Constructor de la clase
+     * */
 
     PantallaReservas() {
         super("Reservas");
@@ -75,8 +82,9 @@ public class PantallaReservas extends JFrame {
 
 
 
-
-
+        /**
+         * Action listener para el boton de imprimir
+         * */
         imprimirButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -106,6 +114,9 @@ public class PantallaReservas extends JFrame {
             }
         });
 
+        /**
+         * Action listener para el boton de regresar
+         * */
         regresarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -119,6 +130,9 @@ public class PantallaReservas extends JFrame {
 
     }
 
+    /**
+     * Metodo para generar el Pdf
+     * */
     private void generarPDF(String nombre,String correo,String telefono,String nombrepelicula,String Genero,String sala,String nasientos,String Horario,String costo) throws Exception {
         Document document = new Document(PageSize.LETTER);
         PdfWriter.getInstance(document, new FileOutputStream("Factura.pdf"));
@@ -166,6 +180,9 @@ public class PantallaReservas extends JFrame {
         // Mostrar el total a pagar y los asientos reservados en los labels correspondientes
         ;
     }
+    /**
+     * Metodo que conecto con mysql
+     * */
     private void establecerConexion() {
         try {
             Main conexionbd = new Main();
@@ -175,6 +192,9 @@ public class PantallaReservas extends JFrame {
             JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+    /**
+     * Metodo para obtener el correo
+     * */
     private String obtenercorreo(String nombreusuario) {
         ResultSet resultSet = null;
         PreparedStatement statement = null;
@@ -214,6 +234,9 @@ public class PantallaReservas extends JFrame {
             }
         }
     }
+    /**
+     * Metodo para obtener el telefono
+     * */
     private String obtenertelefono(String nombreusuario) {
         ResultSet resultSet = null;
         PreparedStatement statement = null;
@@ -253,6 +276,9 @@ public class PantallaReservas extends JFrame {
             }
         }
     }
+    /**
+     * Metodo para obtener el saldo
+     * */
     private int obtenersaldo(String nombreusuario) {
         ResultSet resultSet = null;
         PreparedStatement statement = null;
@@ -292,7 +318,9 @@ public class PantallaReservas extends JFrame {
             }
         }
     }
-
+    /**
+     * Metodo para obtener actualizar el saldo
+     * */
     private String actualizarSaldo(int pago, String name) {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
