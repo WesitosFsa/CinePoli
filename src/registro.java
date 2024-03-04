@@ -71,7 +71,7 @@ public class registro extends JFrame {
                     String AnioNacimiento = Año_Nacimiento.getText();
                     String Cedula = cedula.getText();
                     String rol = "1";
-                    String Saldo_trajeta = Saldo.getText();
+                    String Saldo_cine = Saldo.getText();
 
                     // Validar campos no vacíos
                     if (camposNoVacios()) {
@@ -95,7 +95,7 @@ public class registro extends JFrame {
                             Connection conexion = main.establecerConexion();
 
                             // Consulta SQL para la inserción
-                            String query = "INSERT INTO clientes (idcliente, nom_usuario, contra_usuario, correo, telf_usuario, Año_nacimiento, num_tarj, id_rol, cedula, saldo) VALUES (?,?,?,?,?,?,?,?,?,?)";
+                            String query = "INSERT INTO clientes (idcliente, nom_usuario, contra_usuario, correo, telf_usuario, Año_nacimiento, num_tarj, id_rol, saldo) VALUES (?,?,?,?,?,?,?,?,?)";
 
                             // Preparar la declaración
                             try (PreparedStatement preparedStatement = conexion.prepareStatement(query)) {
@@ -108,8 +108,7 @@ public class registro extends JFrame {
                                 preparedStatement.setString(6, AnioNacimiento);
                                 preparedStatement.setInt(7, Integer.parseInt(numtarjeta));
                                 preparedStatement.setString(8, rol);
-                                preparedStatement.setString(9, Cedula);
-                                preparedStatement.setInt(10, Integer.parseInt(Saldo_trajeta));
+                                preparedStatement.setInt(9, Integer.parseInt(Saldo_cine));
 
                                 // Ejecutar la consulta
                                 preparedStatement.executeUpdate();
