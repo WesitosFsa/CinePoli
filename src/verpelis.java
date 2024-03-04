@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.prefs.Preferences;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.IOException;
 
 /**
  * Esta clase proporciona una interfaz gráfica para visualizar y administrar películas.
@@ -100,14 +103,23 @@ public class verpelis extends JFrame {
             String director = JOptionPane.showInputDialog("Ingrese la director de la película:");
             int anio = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el año de la película:"));
             String clasificacion = JOptionPane.showInputDialog("Ingrese la clasificación de la película:");
-            String ruta = JOptionPane.showInputDialog("Ingrese la ruta de la imagen de la película:");
-            byte[] imagen = leerFoto(ruta);
 
-            // Insertar la película en la base de datos
-            insertarPeliculaEnBaseDatos(id, nombre, genero, descripcion, director, anio, clasificacion, imagen);
+            // Seleccionar la imagen utilizando un JFileChooser
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Seleccionar imagen de la película");
+            fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos de imagen", "jpg", "jpeg", "png"));
 
-            // Actualizar la tabla con las películas de la base de datos
-            cargarPeliculasDesdeBaseDatos();
+            int result = fileChooser.showOpenDialog(null);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
+                byte[] imagen = leerFoto(selectedFile.getPath());
+
+                // Insertar la película en la base de datos
+                insertarPeliculaEnBaseDatos(id, nombre, genero, descripcion, director, anio, clasificacion, imagen);
+
+                // Actualizar la tabla con las películas de la base de datos
+                cargarPeliculasDesdeBaseDatos();
+            }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "El año y el ID deben ser números enteros.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -285,17 +297,18 @@ public class verpelis extends JFrame {
     /**
      * Método para leer una imagen desde una ruta.
      */
-    private static byte[] leerFoto(String ruta) {
-        byte[] imagenBytes = null;
+    // Método para leer una imagen desde el sistema de archivos y convertirla en un array de bytes
+    private byte[] leerFoto(String ruta) {
         try {
-            File imagenFile = new File(ruta);
-            FileInputStream fis = new FileInputStream(imagenFile);
-            imagenBytes = new byte[(int) imagenFile.length()];
-            fis.read(imagenBytes);
-            fis.close();
-        } catch (Exception e) {
+            File file = new File(ruta);
+            byte[] imagenBytes = new byte[(int) file.length()];
+            FileInputStream inputStream = new FileInputStream(file);
+            inputStream.read(imagenBytes);
+            inputStream.close();
+            return imagenBytes;
+        } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
-        return imagenBytes;
     }
 }
