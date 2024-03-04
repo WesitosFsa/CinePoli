@@ -60,10 +60,10 @@
             </constraints>
             <properties>
               <autoscrolls value="false"/>
-              <background color="-7100244"/>
+              <background color="-16751707"/>
               <enabled value="true"/>
               <font name="Century Gothic" size="14" style="1"/>
-              <foreground color="-14606047"/>
+              <foreground color="-1118482"/>
               <hideActionText value="true"/>
               <inheritsPopupMenu value="false"/>
               <text value="Volver a Cartelera"/>
@@ -96,7 +96,7 @@
               <background color="-16751707"/>
               <enabled value="true"/>
               <font name="Century Gothic" size="14" style="1"/>
-              <foreground color="-14606047"/>
+              <foreground color="-1118482"/>
               <hideActionText value="true"/>
               <text value="Escoger Asientos"/>
             </properties>
