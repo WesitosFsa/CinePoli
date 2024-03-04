@@ -70,6 +70,10 @@ public class PantallaReservas extends JFrame {
         String dinerito = Reservas.Dineropublico;
         Costo.setText(dinerito);
         int saldo = obtenersaldo(name);
+        int pago = (int) Reservas.totalPagar;
+        Costo.setText(dinerito);
+        int saldresta = Integer.parseInt(obtenerSaldo(name));
+
 
 
 
@@ -84,8 +88,14 @@ public class PantallaReservas extends JFrame {
                     if (respuesta == JOptionPane.YES_OPTION) {
                         // Imprimir el PDF si se confirma el pago
                         try {
-                            generarPDF(name,correo,telefono,namepeli,generopeli,horario,sala,textoFinal,dinerito);
-                            JOptionPane.showMessageDialog(null, "PDF generado exitosamente.");
+                            if (saldresta < pago){
+                                JOptionPane.showConfirmDialog(null,"El saldo no es suficiente");
+                            }else{
+                                actualizarSaldo(saldo, name);
+                                generarPDF(name,correo,telefono,namepeli,generopeli,horario,sala,textoFinal,dinerito);
+                                JOptionPane.showMessageDialog(null, "PDF generado exitosamente.");
+                            }
+
                         } catch (Exception ex) {
                             ex.printStackTrace();
                             JOptionPane.showMessageDialog(null, "Error al generar el PDF.");
@@ -285,5 +295,93 @@ public class PantallaReservas extends JFrame {
             }
         }
     }
+    private String obtenerSaldo(String nombreusuario) {
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
 
+        try {
+            // Preparar la consulta SQL con un filtro por nombre de película
+            String sql = "SELECT saldo FROM clientes WHERE nom_usuario = ?";
+            statement = conexion.prepareStatement(sql);
+            statement.setString(1, nombreusuario); // Establecer el nombre de la película como parámetro
+
+            // Ejecutar la consulta y obtener el resultado
+            resultSet = statement.executeQuery();
+
+            // Verificar si hay resultados
+            if (resultSet.next()) {
+                // Obtener la sinopsis de la película desde la columna 'sinopsis'
+                String saldo = resultSet.getString("saldo");
+                return saldo;
+            } else {
+                return "El usuario '" + nombreusuario + "' no fue encontrada en la base de datos.";
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al obtener el saldo desde la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        } finally {
+            // Cerrar recursos
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    private String actualizarSaldo(int pago, String name) {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            // Obtener el saldo actual
+            String saldo_bd = obtenerSaldo(name);
+            int saldoActual = Integer.parseInt(saldo_bd);
+
+            // Calcular el nuevo saldo
+            int nuevo_saldo = saldoActual - pago;
+
+            // Preparar la consulta SQL para actualizar el saldo
+            String sql = "UPDATE clientes SET saldo = ? WHERE nom_usuario = ?";
+            statement = conexion.prepareStatement(sql);
+
+            // Establecer los parámetros en el PreparedStatement
+            statement.setInt(1, nuevo_saldo);
+            statement.setString(2, name);
+
+            // Ejecutar la actualización
+            int filasAfectadas = statement.executeUpdate();
+
+            // Verificar si la actualización fue exitosa
+            if (filasAfectadas > 0) {
+                // La actualización fue exitosa, puedes devolver el nuevo saldo
+                return String.valueOf(nuevo_saldo);
+            } else {
+                // No se realizó ninguna actualización
+                return "No se realizó ninguna actualización para el usuario '" + name + "'.";
+            }
+        } catch (SQLException | NumberFormatException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al actualizar el saldo en la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        } finally {
+            // Cerrar recursos
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
 }
