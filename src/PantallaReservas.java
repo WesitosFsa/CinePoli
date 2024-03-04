@@ -109,12 +109,14 @@ public class PantallaReservas extends JFrame {
         regresarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Reservas reserva = new Reservas();
-                reserva.setVisible(true);
+                PELICULAS pelis = new PELICULAS();
+                pelis.setVisible(true);
+                // Cierra el marco actual
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(panel1);
                 frame.dispose();
             }
         });
+
     }
 
     public static void main(String[] args) {
