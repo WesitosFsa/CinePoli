@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 /**
  * Librerias nesesarias para que la pantalla se ejecute perfectamente
  */
@@ -179,4 +178,3 @@ public class Reser extends JFrame{
     }
 }
 
->>>>>>> e2a8510b119e25819f7dcb5d17cc9cc45f4349bb
