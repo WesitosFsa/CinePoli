@@ -187,7 +187,7 @@ public class Estadistica extends JFrame {
     /** Método para cargar los datos de ventas */
     private void cargarventas() {
         try {
-            String sql = "select nom_pelicula, costo_boleto from factura";
+            String sql = "select nom_pelicula, costo_boleto from Facturas";
             PreparedStatement statement = conexion.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
 
@@ -215,7 +215,7 @@ public class Estadistica extends JFrame {
     /** Método para cargar los datos de personas */
     private void cargarpersonas() {
         try {
-            String sql = "select horario, costo_boleto from factura";
+            String sql = "select horario, costo_boleto from Facturas";
             PreparedStatement statement = conexion.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
 

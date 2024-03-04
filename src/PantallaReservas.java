@@ -143,9 +143,8 @@ public class PantallaReservas extends JFrame {
             statementInsert.setString(2, nombre);
             statementInsert.setString(3, Horario);
             statementInsert.setString(4, nasientos);
-            double costoDecimal = Double.parseDouble(costo);
-// Establecer el parámetro en la consulta preparada
-            statementInsert.setDouble(5, costoDecimal); // Convertir el costo a BigDecimal antes de insertarlo
+            int costoEntero = (int) Math.round(Double.parseDouble(costo));
+            statementInsert.setInt(5, costoEntero); // Convertir el costo a BigDecimal antes de insertarlo
             statementInsert.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
