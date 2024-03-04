@@ -10,7 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.prefs.Preferences;
 
+/**
+ * Esta clase proporciona una interfaz gráfica para visualizar y administrar películas.
+ */
 public class verpelis extends JFrame {
+    // Componentes de la interfaz gráfica
     private JPanel panel1;
     private JButton añadirButton;
     private JButton eliminarButton;
@@ -22,6 +26,7 @@ public class verpelis extends JFrame {
 
     private Preferences preferences = Preferences.userNodeForPackage(getClass());
 
+    // Constructor de la clase verpelis
     public verpelis() {
         // Configuración de la ventana
         setContentPane(panel1);
@@ -49,6 +54,7 @@ public class verpelis extends JFrame {
         cargarPeliculasDesdeBaseDatos();
     }
 
+    // Método para establecer la conexión a la base de datos
     private void establecerConexion() {
         try {
             Main conexionbd = new Main();
@@ -59,6 +65,7 @@ public class verpelis extends JFrame {
         }
     }
 
+    // Método para configurar el modelo de tabla para mostrar películas
     private void configurarModeloTabla() {
         tableModel = new DefaultTableModel();
         tableModel.addColumn("ID");
@@ -73,8 +80,10 @@ public class verpelis extends JFrame {
         peliculasTable.setEnabled(false);
     }
 
+    // Método para agregar una película
     private void agregarPelicula() {
         try {
+            // Se solicita al usuario que ingrese los detalles de la película
             int id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la película:"));
             String nombre = JOptionPane.showInputDialog("Ingrese el nombre de la película:");
             String genero = JOptionPane.showInputDialog("Ingrese el género de la película:");
@@ -95,6 +104,7 @@ public class verpelis extends JFrame {
         }
     }
 
+    // Método para insertar una película en la base de datos
     private void insertarPeliculaEnBaseDatos(int id, String nombre, String genero, String descripcion, String director, int anio, String clasificacion, byte[] imagen) {
         try {
             String sql = "INSERT INTO peliculas (id_pelicula, nombre_pelicula, genero, sinopsis, Director, anho, clasificacion, foto_pelicula) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -114,6 +124,7 @@ public class verpelis extends JFrame {
         }
     }
 
+    // Método para eliminar una película
     private void eliminarPelicula() {
         try {
             int idEliminar = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la película a eliminar:"));
@@ -126,6 +137,7 @@ public class verpelis extends JFrame {
         }
     }
 
+    // Método para eliminar una película de la base de datos
     private void eliminarPeliculaEnBaseDatos(int idEliminar) {
         try {
             String sql = "DELETE FROM peliculas WHERE id_pelicula = ?";
@@ -138,7 +150,7 @@ public class verpelis extends JFrame {
         }
     }
 
-
+    // Método para cargar películas desde la base de datos
     private void cargarPeliculasDesdeBaseDatos() {
         try {
             String sql = "SELECT * FROM peliculas";
@@ -148,6 +160,7 @@ public class verpelis extends JFrame {
             listaPeliculas.clear(); // Limpiar la lista antes de cargar las películas desde la base de datos
 
             while (resultSet.next()) {
+                // Se obtienen los datos de la película desde la base de datos
                 int id = resultSet.getInt("id_pelicula");
                 String nombre = resultSet.getString("nombre_pelicula");
                 String genero = resultSet.getString("genero");
@@ -157,6 +170,7 @@ public class verpelis extends JFrame {
                 String clasificacion = resultSet.getString("clasificacion");
                 String imagen = resultSet.getString("foto_pelicula");
 
+                // Se crea un objeto Pelicula y se agrega a la lista de películas
                 Pelicula pelicula = new Pelicula(id, nombre, genero, descripcion, director, anio, clasificacion, imagen);
                 listaPeliculas.add(pelicula);
             }
@@ -168,7 +182,7 @@ public class verpelis extends JFrame {
         }
     }
 
-
+    // Método para mostrar películas en la tabla
     private void mostrarPeliculas() {
         // Limpiar el modelo de tabla
         tableModel.setRowCount(0);
@@ -179,6 +193,7 @@ public class verpelis extends JFrame {
         }
     }
 
+    // Método para volver al menú principal
     private void volverMenuPrincipal() {
         ADMIN Admin = new ADMIN();
         Admin.setVisible(true);
@@ -186,6 +201,7 @@ public class verpelis extends JFrame {
         frame.dispose();
     }
 
+    // Clase interna que representa una película
     public static class Pelicula {
         private int id;
         private String nombre;
@@ -196,6 +212,7 @@ public class verpelis extends JFrame {
         private String clasificacion;
         private String imagen;
 
+        // Constructor de la clase Pelicula
         public Pelicula(int id, String nombre, String genero, String descripcion, String director, int anio, String clasificacion, String imagen) {
             this.id = id;
             this.nombre = nombre;
@@ -207,6 +224,7 @@ public class verpelis extends JFrame {
             this.imagen = imagen;
         }
 
+        // Métodos getter para obtener los detalles de la película
         public int getId() {
             return id;
         }
@@ -240,6 +258,7 @@ public class verpelis extends JFrame {
         }
     }
 
+    // Método para leer una imagen desde una ruta
     private static byte[] leerFoto(String ruta) {
         byte[] imagenBytes = null;
         try {
