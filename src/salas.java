@@ -16,16 +16,9 @@ public class salas extends JFrame {
     private JButton ingresarButton;
     private JButton verInformacionButton;
     private JButton menuButton;
-    private JLabel NUMSALA;
-    private JLabel IDPELICULA;
     private JLabel ASIENTOS;
     private JLabel asientos;
-    private JLabel horario;
-    private JLabel nombrePeli;
-    private JLabel HORARIO;
     private JLabel Sala;
-    private JLabel DIA;
-    private JLabel Dia;
     private JLabel NumSala;
     private JLabel numSala;
     private JTextField textFieldNUMSALAS;
@@ -36,6 +29,13 @@ public class salas extends JFrame {
     private JTextField mostrarHorario;
     private JTextField mostrarNumsala;
     private JTextField mostrarDia;
+    private JLabel IDPELICULA;
+    private JLabel NUMSALA;
+    private JLabel DIA;
+    private JLabel HORARIO;
+    private JLabel nombrePeli;
+    private JLabel horario;
+    private JLabel Dia;
 
     private List<verpelis.Pelicula> listaPeliculas;
     private Map<Integer, SalasInfo> salas;
