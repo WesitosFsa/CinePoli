@@ -17,6 +17,29 @@ public class Reser extends JFrame{
     private JButton[] Salas;
     private List<JButton> asientosReservados = new ArrayList<>();
     private boolean salaSeleccionada = false;
+    private static final String HORA;
+    private static final String SALA;
+
+    static {
+        // Conectar a la base de datos y obtener las salas
+        String horaTemp = "";
+        String salaTemp = "";
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://ukghiar85gp7mrpy:nQVmOkgbY4UHYZybHvO2@bxrwabtu14qddifcwky1-mysql.services.clever-cloud.com:3306/bxrwabtu14qddifcwky1", "ukghiar85gp7mrpy", "nQVmOkgbY4UHYZybHvO2");
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM sala");
+            if(resultSet.next()) {
+                salaTemp = resultSet.getString("Num_Sala");
+                horaTemp = resultSet.getString("Dia") + " " + resultSet.getString("Horario_Sala");
+            }
+            connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al cargar las salas desde la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        HORA = horaTemp;
+        SALA = salaTemp;
+    }
 
     public Reser() {
         super("Reservas");
@@ -30,24 +53,6 @@ public class Reser extends JFrame{
         Salas = new JButton[]{
                 a1Button, a2Button, a3Button, a4Button, a6Button,a7Button,a8Button,a9Button,
         };
-
-        // Conectar a la base de datos y obtener las salas
-        try {
-            Connection connection = establecerConexion();
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM sala");
-            int index = 0;
-            while (resultSet.next() && index < Salas.length) {
-                JButton button = Salas[index];
-                button.setText(resultSet.getString("Num_Sala"));
-                button.setName(resultSet.getString("Dia") + " " + resultSet.getString("Horario_Sala"));
-                index++;
-            }
-            connection.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al cargar las salas desde la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
-        }
 
         for (JButton button : Salas) {
             button.addActionListener(new ActionListener() {
@@ -65,7 +70,7 @@ public class Reser extends JFrame{
                         int respuesta = JOptionPane.showConfirmDialog(null, "¿Quiere reservar esta sala?",
                                 "Reservar", JOptionPane.YES_NO_OPTION);
                         if (respuesta == JOptionPane.YES_OPTION) {
-                            JOptionPane.showMessageDialog(null, "Reserva Realizada\nSala: " + clickedButton.getText() + "\nDía: " + getDiaHoraSala(clickedButton.getText()) + "\nHorario: " + clickedButton.getName(), "Reservar", JOptionPane.WARNING_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Reserva Realizada\nSala: " + clickedButton.getText() + "\nDía: " + HORA + "\nHorario: " + clickedButton.getName(), "Reservar", JOptionPane.WARNING_MESSAGE);
                             clickedButton.setBackground(Color.GREEN);
                             asientosReservados.remove(clickedButton);
                             salaSeleccionada=true;
@@ -103,10 +108,12 @@ public class Reser extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 Reservas reserva = new Reservas();
                 reserva.setVisible(true);
+                JOptionPane.showMessageDialog(null, "Sala seleccionada: " + SALA + "\nHora seleccionada: " + HORA, "Información", JOptionPane.INFORMATION_MESSAGE);
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(continuarButton);
                 frame.dispose();
             }
         });
+
         SALIRButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -116,40 +123,6 @@ public class Reser extends JFrame{
                 frame.dispose();
             }
         });
-    }
-
-    public void conexion_base() {
-        try {
-            Connection conexion = establecerConexion();
-            conexion.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    private Connection establecerConexion() throws SQLException {
-        String url = "jdbc:mysql://ukghiar85gp7mrpy:nQVmOkgbY4UHYZybHvO2@bxrwabtu14qddifcwky1-mysql.services.clever-cloud.com:3306/bxrwabtu14qddifcwky1";
-        String usuarioDB = "ukghiar85gp7mrpy";
-        String contraseniaDB = "nQVmOkgbY4UHYZybHvO2";
-        return DriverManager.getConnection(url, usuarioDB, contraseniaDB);
-    }
-
-    private String getDiaHoraSala(String sala) {
-        String diaHora = "";
-        try {
-            Connection connection = establecerConexion();
-            PreparedStatement statement = connection.prepareStatement("SELECT Dia, Horario_Sala FROM sala WHERE Num_Sala = ?");
-            statement.setString(1, sala);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                diaHora = resultSet.getString("Dia") + " " + resultSet.getString("Horario_Sala");
-            }
-            connection.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al obtener los datos de la sala desde la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        return diaHora;
     }
 
     public static void main(String[] args) {

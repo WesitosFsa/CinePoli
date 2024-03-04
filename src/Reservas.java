@@ -4,7 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-public class Reservas extends JFrame{
+
+public class Reservas extends JFrame {
 
     public static final Color COLOR_RESERVADO = new Color(147, 168, 172);
     private JPanel panel1;
@@ -23,6 +24,8 @@ public class Reservas extends JFrame{
     private double totalPagar = 0.0;
     private JButton[] buttons;
     private List<JButton> asientosReservados = new ArrayList<>();
+    private static final String[] ASIENTOS_RESERVADOS = new String[81]; // Arreglo para almacenar los asientos seleccionados
+
     Reservas() {
         super("Reservas");
         setContentPane(panel1);
@@ -32,8 +35,7 @@ public class Reservas extends JFrame{
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-        //login user = new login();
-        //String usuario = login.usuario;
+
         buttons = new JButton[]{
                 a1Button, a2Button, a3Button, a4Button, a5Button, a6Button, a7Button, a8Button, a9Button,
                 b1Button, b2Button, b3Button, b4Button, b5Button, b6Button, b7Button, b8Button, b9Button,
@@ -44,6 +46,7 @@ public class Reservas extends JFrame{
                 g1Button, g2Button, g3Button, g4Button, g5Button, g6Button, g7Button, g8Button, g9Button,
                 h1Button, h2Button, h3Button, h4Button, h5Button, h6Button, h7Button, h8Button, h9Button
         };
+
         for (JButton button : buttons) {
             button.addActionListener(new ActionListener() {
                 @Override
@@ -72,6 +75,7 @@ public class Reservas extends JFrame{
                             totalPagar += 7.0;
                             Dinero.setText("$" + totalPagar);
                             asientosReservados.add(clickedButton);
+                            ASIENTOS_RESERVADOS[asientosReservados.size() - 1] = clickedButton.getText(); // Almacenar el asiento seleccionado
                         }
                     }
                 }
@@ -95,6 +99,18 @@ public class Reservas extends JFrame{
                 for (JButton button : asientosReservados) {
                     button.setBackground(Color.RED);
                 }
+                // Mostrar los asientos reservados en una ventana emergente
+                StringBuilder asientosStr = new StringBuilder("Asientos seleccionados:\n");
+                for (String asiento : ASIENTOS_RESERVADOS) {
+                    if (asiento != null) {
+                        asientosStr.append(asiento).append("\n");
+                    }
+                }
+                JOptionPane.showMessageDialog(null, asientosStr.toString(), "Asientos Reservados", JOptionPane.INFORMATION_MESSAGE);
+
+                // Mostrar el total a pagar
+                JOptionPane.showMessageDialog(null, "Total a pagar: $" + totalPagar, "Total a Pagar", JOptionPane.INFORMATION_MESSAGE);
+
                 // Limpiar el total a pagar y el label
                 totalPagar = 0.0;
                 Dinero.setText("$" + totalPagar);
@@ -107,6 +123,13 @@ public class Reservas extends JFrame{
                 frame.dispose();
             }
         });
+    }
+    public double getTotalPagar() {
+        return totalPagar;
+    }
+
+    public String[] getAsientosReservados() {
+        return ASIENTOS_RESERVADOS;
     }
 
     public static void main(String[] args) {
