@@ -32,6 +32,10 @@ public class DATOS extends JFrame {
     private String clasificacions;
     private Connection conexion;
 
+    public static String peliculapublica;
+
+    public static String generopublico;
+
     // Constructor de la clase DATOS
     public DATOS(String sinopses, String nombrePelicula, String generoPelicula, String directorPelicula, String anhoPelicula, ImageIcon imagenPelicula, String clasificacions) {
         // Inicialización de variables con los datos de la película
@@ -49,6 +53,9 @@ public class DATOS extends JFrame {
         setLocationRelativeTo(null);
         setUndecorated(true);
         setVisible(true);
+
+        peliculapublica = nombrePelicula;
+        generopublico = generoPelicula;
 
         // Establece los valores de los componentes con los datos de la película
         titulo.setText(nombrePelicula);

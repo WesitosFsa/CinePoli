@@ -19,6 +19,8 @@ public class login extends JFrame {
     private JLabel text;
     private Image imagen;
 
+    public static String NombreUsuario;
+
     /** Constructor de la clase login */
     public login() {
         /* Configuración de la pantalla login */
@@ -35,6 +37,7 @@ public class login extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String nombreUsuario = nombre.getText();
                 String password = new String(contrasenia.getPassword());
+                NombreUsuario = nombreUsuario;
 
                 int idRol = obtenerIdRol(nombreUsuario, password);
 
