@@ -26,7 +26,9 @@ public class verpelis extends JFrame {
 
     private Preferences preferences = Preferences.userNodeForPackage(getClass());
 
-    // Constructor de la clase verpelis
+    /**
+     * Constructor de la clase verpelis.
+     */
     public verpelis() {
         // Configuración de la ventana
         setContentPane(panel1);
@@ -54,7 +56,9 @@ public class verpelis extends JFrame {
         cargarPeliculasDesdeBaseDatos();
     }
 
-    // Método para establecer la conexión a la base de datos
+    /**
+     * Método para establecer la conexión a la base de datos.
+     */
     private void establecerConexion() {
         try {
             Main conexionbd = new Main();
@@ -65,7 +69,9 @@ public class verpelis extends JFrame {
         }
     }
 
-    // Método para configurar el modelo de tabla para mostrar películas
+    /**
+     * Método para configurar el modelo de tabla para mostrar películas.
+     */
     private void configurarModeloTabla() {
         tableModel = new DefaultTableModel();
         tableModel.addColumn("ID");
@@ -80,7 +86,9 @@ public class verpelis extends JFrame {
         peliculasTable.setEnabled(false);
     }
 
-    // Método para agregar una película
+    /**
+     * Método para agregar una película.
+     */
     private void agregarPelicula() {
         try {
             // Se solicita al usuario que ingrese los detalles de la película
@@ -103,8 +111,9 @@ public class verpelis extends JFrame {
             JOptionPane.showMessageDialog(null, "El año y el ID deben ser números enteros.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    // Método para insertar una película en la base de datos
+    /**
+     * Método para insertar una película en la base de datos
+     * */
     private void insertarPeliculaEnBaseDatos(int id, String nombre, String genero, String descripcion, String director, int anio, String clasificacion, byte[] imagen) {
         try {
             String sql = "INSERT INTO peliculas (id_pelicula, nombre_pelicula, genero, sinopsis, Director, anho, clasificacion, foto_pelicula) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -124,7 +133,9 @@ public class verpelis extends JFrame {
         }
     }
 
-    // Método para eliminar una película
+    /**
+     * Método para eliminar una película
+     * */
     private void eliminarPelicula() {
         try {
             int idEliminar = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la película a eliminar:"));
@@ -137,7 +148,9 @@ public class verpelis extends JFrame {
         }
     }
 
-    // Método para eliminar una película de la base de datos
+    /**
+     * Método para eliminar una película de la base de datos
+     * */
     private void eliminarPeliculaEnBaseDatos(int idEliminar) {
         try {
             String sql = "DELETE FROM peliculas WHERE id_pelicula = ?";
@@ -150,7 +163,10 @@ public class verpelis extends JFrame {
         }
     }
 
-    // Método para cargar películas desde la base de datos
+    /**
+     * Método para cargar películas desde la base de datos
+     * */
+
     private void cargarPeliculasDesdeBaseDatos() {
         try {
             String sql = "SELECT * FROM peliculas";
@@ -182,7 +198,10 @@ public class verpelis extends JFrame {
         }
     }
 
-    // Método para mostrar películas en la tabla
+    /**
+     * Método para mostrar películas en la tabla
+     * */
+
     private void mostrarPeliculas() {
         // Limpiar el modelo de tabla
         tableModel.setRowCount(0);
@@ -192,8 +211,10 @@ public class verpelis extends JFrame {
             tableModel.addRow(rowData);
         }
     }
+    /**
+     * Método para volver al menú principal
+     * */
 
-    // Método para volver al menú principal
     private void volverMenuPrincipal() {
         ADMIN Admin = new ADMIN();
         Admin.setVisible(true);
@@ -201,7 +222,9 @@ public class verpelis extends JFrame {
         frame.dispose();
     }
 
-    // Clase interna que representa una película
+    /**
+     * Clase interna que representa una película.
+     */
     public static class Pelicula {
         private int id;
         private String nombre;
@@ -258,7 +281,9 @@ public class verpelis extends JFrame {
         }
     }
 
-    // Método para leer una imagen desde una ruta
+    /**
+     * Método para leer una imagen desde una ruta.
+     */
     private static byte[] leerFoto(String ruta) {
         byte[] imagenBytes = null;
         try {
