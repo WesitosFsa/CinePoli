@@ -228,7 +228,9 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+/**
+ * Clase que representa la interfaz gráfica para administrar información de salas y proyecciones de películas.
+ */
 public class salas extends JFrame {
     private JPanel panel1;
     private JButton ingresarButton;
@@ -256,13 +258,13 @@ public class salas extends JFrame {
     private JTextField mostrarDia;
     private JTextField numsala;
 
-
-
     private List<verpelis.Pelicula> listaPeliculas;
     private Map<Integer, SalasInfo> salas;
 
     private Connection conexion;
-
+    /**
+     * Constructor de la clase Salas que inicializa la interfaz gráfica y establece la conexión a la base de datos.
+     */
     public salas() {
         /*Configuracion de la pantalla Salas*/
         setContentPane(panel1);
@@ -343,7 +345,9 @@ public class salas extends JFrame {
         // Cargar las salas desde la base de datos al iniciar la aplicación
         cargarSalasDesdeBD();
     }
-
+    /**
+     * Establece la conexión con la base de datos.
+     */
     private void establecerConexion() {
         try {
             // Establecer la conexión con la base de datos
@@ -353,7 +357,9 @@ public class salas extends JFrame {
             JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    /**
+     * Limpia los campos de entrada de información.
+     */
     private void limpiarCampos() {
         textFieldIDPELICULA.setText("");
         textFieldHORARIO.setText("");
@@ -544,15 +550,22 @@ public class salas extends JFrame {
         }
     }
 
-    // Clase interna que representa una sala
+    /**
+     * Clase interna que representa la información de una sala.
+     */
     class SalasInfo {
         private int idPelicula;
         private String horario;
         private int numSala;
         private String dia;
 
-        // Constructor de la clase Salas
-// Constructor de la clase Salas
+        /**
+         * Constructor de la clase SalasInfo.
+         * @param idPelicula ID de la película asociada a la sala.
+         * @param horario Horario de proyección en la sala.
+         * @param numSala Número de la sala.
+         * @param dia Día de la proyección en la sala.
+         */
         public SalasInfo(int idPelicula, String horario, int numSala, String dia) {
             this.idPelicula = idPelicula;
             this.horario = horario;
@@ -561,7 +574,9 @@ public class salas extends JFrame {
         }
 
 
-        // Método para insertar la información de la sala en la base de datos
+        /**
+         * Inserta la información de la sala en la base de datos.
+         */
         private void insertarSalaEnBD() {
             try {
                 String query = "INSERT INTO sala (id_pelicula, Horario_Sala, Num_Sala, Dia) VALUES (?, ?, ?, ?)";
@@ -594,6 +609,13 @@ public class salas extends JFrame {
             return dia;
         }
 
+
+        /**
+         * Actualiza la información de la sala.
+         * @param idPelicula Nueva ID de la película asociada a la sala.
+         * @param horario Nuevo horario de proyección en la sala.
+         * @param dia Nuevo día de la proyección en la sala.
+         */
         public void actualizarInfo(int idPelicula, String horario, String dia) {
             mostrarPelicula.setText(obtenerNombrePelicula(idPelicula));
             mostrarHorario.setText(horario);
