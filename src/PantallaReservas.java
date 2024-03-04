@@ -20,7 +20,6 @@ public class PantallaReservas extends JFrame {
     private JLabel NombrePeli;
     private JLabel Genero;
     private JLabel NumSala;
-    private JLabel CantidadAsientos;
     private JLabel NumerodeAsiento;
     private JLabel Horario;
     private JLabel Costo;
@@ -49,6 +48,10 @@ public class PantallaReservas extends JFrame {
         NombrePeli.setText(namepeli);
         String generopeli = DATOS.generopublico;
         Genero.setText(generopeli);
+        String horario = Reser.Horapublica;
+        Horario.setText(horario);
+        String sala = Reser.salapublica;
+        NumSala.setText(sala);
 
 
 

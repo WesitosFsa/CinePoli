@@ -37,6 +37,9 @@ public class Reser extends JFrame{
     private boolean salaSeleccionada = false;
 
     // Constantes para almacenar la hora y sala seleccionadas
+
+    public static  String Horapublica;
+    public static String salapublica;
     private static final String HORA;
     private static final String SALA;
 
@@ -103,6 +106,8 @@ public class Reser extends JFrame{
                         if (respuesta == JOptionPane.YES_OPTION) {
                             // Realizar reserva y actualizar interfaz
                             JOptionPane.showMessageDialog(null, "Reserva Realizada\nSala: " + clickedButton.getText() + "\nDía: " + HORA + "\nHorario: " + clickedButton.getName(), "Reservar", JOptionPane.WARNING_MESSAGE);
+                            Horapublica = (HORA);
+                            salapublica = clickedButton.getText();
                             clickedButton.setBackground(Color.GREEN);
                             asientosReservados.remove(clickedButton);
                             salaSeleccionada=true;

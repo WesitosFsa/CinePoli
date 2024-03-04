@@ -24,6 +24,8 @@ public class Reservas extends JFrame {
     public static double totalPagar = 0.0;
     private JButton[] buttons;
     private List<JButton> asientosReservados = new ArrayList<>();
+
+    public static String asientospublicos[];
     public static final String[] ASIENTOS_RESERVADOS = new String[72]; // Arreglo para almacenar los asientos seleccionados
 
     Reservas() {
