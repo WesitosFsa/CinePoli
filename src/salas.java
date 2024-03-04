@@ -316,8 +316,12 @@ public class salas extends JFrame {
 
                     String Nombrepeli = obtenerNombrePelicula(idPelicula);
                     String Horarios = obtenerHorario(idPelicula);
+                    String Dia = obtenerDia(idPelicula);
+                    String Numsala = obtenerNumsala(idPelicula);
                     mostrarPelicula.setText(Nombrepeli);
                     mostrarHorario.setText(Horarios);
+                    mostrarDia.setText(Dia);
+                    mostrarNumsala.setText(Numsala);
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Ingrese un número válido para la ID de la película.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -414,6 +418,85 @@ public class salas extends JFrame {
                 // Obtener la sinopsis de la película desde la columna 'sinopsis'
                 String horario = resultSet.getString("Horario_Sala");
                 return horario;
+            } else {
+                // Si no hay resultados, devolver un mensaje indicando que la película no fue encontrada
+                return "El '" + idPelicula + "' no fue encontrada en la base de datos.";
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al obtener información de la película desde la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        } finally {
+            // Cerrar recursos
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    private String obtenerDia(int idPelicula) {
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
+        try {
+            // Preparar la consulta SQL con un filtro por nombre de película
+            String sql = "SELECT Dia FROM sala WHERE id_pelicula = ?";
+            statement = conexion.prepareStatement(sql);
+            statement.setInt(1, idPelicula); // Establecer el ID DE PELICULA COMO PARAMETRO
+
+            // Ejecutar la consulta y obtener el resultado
+            resultSet = statement.executeQuery();
+
+            // Verificar si hay resultados
+            if (resultSet.next()) {
+                // Obtener la sinopsis de la película desde la columna 'sinopsis'
+                String Dia = resultSet.getString("Dia");
+                return Dia;
+            } else {
+                // Si no hay resultados, devolver un mensaje indicando que la película no fue encontrada
+                return "El '" + idPelicula + "' no fue encontrada en la base de datos.";
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al obtener información de la película desde la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        } finally {
+            // Cerrar recursos
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+    private String obtenerNumsala(int idPelicula) {
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
+        try {
+            // Preparar la consulta SQL con un filtro por nombre de película
+            String sql = "SELECT Num_Sala FROM sala WHERE id_pelicula = ?";
+            statement = conexion.prepareStatement(sql);
+            statement.setInt(1, idPelicula); // Establecer el ID DE PELICULA COMO PARAMETRO
+
+            // Ejecutar la consulta y obtener el resultado
+            resultSet = statement.executeQuery();
+
+            // Verificar si hay resultados
+            if (resultSet.next()) {
+                // Obtener la sinopsis de la película desde la columna 'sinopsis'
+                String Numsala = resultSet.getString("Num_Sala");
+                return Numsala;
             } else {
                 // Si no hay resultados, devolver un mensaje indicando que la película no fue encontrada
                 return "El '" + idPelicula + "' no fue encontrada en la base de datos.";
