@@ -88,13 +88,11 @@ public class PantallaReservas extends JFrame {
                     if (respuesta == JOptionPane.YES_OPTION) {
                         // Imprimir el PDF si se confirma el pago
                         try {
-                            if (saldresta > pago){
+                            //if (saldresta > pago){
                                 actualizarSaldo(saldo, name);
                                 generarPDF(name,correo,telefono,namepeli,generopeli,sala,textoFinal,horario,dinerito);
                                 JOptionPane.showMessageDialog(null, "PDF generado exitosamente.");
-                            }else{
-                                JOptionPane.showConfirmDialog(null,"El saldo no es suficiente");
-                            }
+                            //}
 
                         } catch (Exception ex) {
                             ex.printStackTrace();
@@ -295,45 +293,6 @@ public class PantallaReservas extends JFrame {
             }
         }
     }
-    private String obtenerSaldo(String nombreusuario) {
-        ResultSet resultSet = null;
-        PreparedStatement statement = null;
-
-        try {
-            // Preparar la consulta SQL con un filtro por nombre de película
-            String sql = "SELECT saldo FROM clientes WHERE nom_usuario = ?";
-            statement = conexion.prepareStatement(sql);
-            statement.setString(1, nombreusuario); // Establecer el nombre de la película como parámetro
-
-            // Ejecutar la consulta y obtener el resultado
-            resultSet = statement.executeQuery();
-
-            // Verificar si hay resultados
-            if (resultSet.next()) {
-                // Obtener la sinopsis de la película desde la columna 'sinopsis'
-                String saldo = resultSet.getString("saldo");
-                return saldo;
-            } else {
-                return "El usuario '" + nombreusuario + "' no fue encontrada en la base de datos.";
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al obtener el saldo desde la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            return null;
-        } finally {
-            // Cerrar recursos
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
 
     private String actualizarSaldo(int pago, String name) {
         PreparedStatement statement = null;
@@ -341,30 +300,36 @@ public class PantallaReservas extends JFrame {
 
         try {
             // Obtener el saldo actual
-            String saldo_bd = obtenerSaldo(name);
-            int saldoActual = Integer.parseInt(saldo_bd);
+            int saldo_bd = obtenersaldo(name);
+            int saldoActual = saldo_bd;
 
-            // Calcular el nuevo saldo
-            int nuevo_saldo = saldoActual - pago;
+            // Verificar si el pago es menor o igual al saldo actual
+            if (pago <= saldoActual) {
+                // Calcular el nuevo saldo
+                int nuevo_saldo = saldoActual - pago;
 
-            // Preparar la consulta SQL para actualizar el saldo
-            String sql = "UPDATE clientes SET saldo = ? WHERE nom_usuario = ?";
-            statement = conexion.prepareStatement(sql);
+                // Preparar la consulta SQL para actualizar el saldo
+                String sql = "UPDATE clientes SET saldo = ? WHERE nom_usuario = ?";
+                statement = conexion.prepareStatement(sql);
 
-            // Establecer los parámetros en el PreparedStatement
-            statement.setInt(1, nuevo_saldo);
-            statement.setString(2, name);
+                // Establecer los parámetros en el PreparedStatement
+                statement.setInt(1, nuevo_saldo);
+                statement.setString(2, name);
 
-            // Ejecutar la actualización
-            int filasAfectadas = statement.executeUpdate();
+                // Ejecutar la actualización
+                int filasAfectadas = statement.executeUpdate();
 
-            // Verificar si la actualización fue exitosa
-            if (filasAfectadas > 0) {
-                // La actualización fue exitosa, puedes devolver el nuevo saldo
-                return String.valueOf(nuevo_saldo);
+                // Verificar si la actualización fue exitosa
+                if (filasAfectadas > 0) {
+                    // La actualización fue exitosa, puedes devolver el nuevo saldo
+                    return String.valueOf(nuevo_saldo);
+                } else {
+                    // No se realizó ninguna actualización
+                    return "No se realizó ninguna actualización para el usuario '" + name + "'.";
+                }
             } else {
-                // No se realizó ninguna actualización
-                return "No se realizó ninguna actualización para el usuario '" + name + "'.";
+                // El pago es mayor que el saldo actual, devuelve un mensaje indicando que no hay fondos suficientes
+                return "Fondos insuficientes para realizar el pago.";
             }
         } catch (SQLException | NumberFormatException ex) {
             ex.printStackTrace();
@@ -384,4 +349,5 @@ public class PantallaReservas extends JFrame {
             }
         }
     }
+
 }
