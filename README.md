@@ -85,6 +85,7 @@ Explicacion Pantalla administrador habra 3 botones
 
 --------------------------------------
 Nombre de los integrantes de grupo
+-
 Eduardo Caza
 -
 Mateo Garzon
