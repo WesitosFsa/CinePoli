@@ -13,7 +13,7 @@ public class Main extends JFrame {
      * @return La conexión establecida
      * @throws SQLException Si ocurre un error al establecer la conexión
      */
-    Connection establecerConexion() throws SQLException {
+    static Connection establecerConexion() throws SQLException {
         // URL de la base de datos
         String url = "jdbc:mysql://ukghiar85gp7mrpy:nQVmOkgbY4UHYZybHvO2@bxrwabtu14qddifcwky1-mysql.services.clever-cloud.com:3306/bxrwabtu14qddifcwky1";
         // Usuario de la base de datos
