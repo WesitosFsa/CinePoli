@@ -50,6 +50,11 @@ Pantalla Cajero:
 -
 ![image](https://github.com/WesitosFsa/CinePoli/assets/137083225/c36a8102-b695-43b4-a240-c0e8607c5c64)
 
+.-nos imprime una factura en la que decidimos si queremos pagar o no
+-
+![Captura de pantalla 2024-03-04 131210](https://github.com/WesitosFsa/CinePoli/assets/137083225/5ea32cd5-4350-4a84-9dde-0cce3b8acb47)
+![Captura de pantalla 2024-03-04 131223](https://github.com/WesitosFsa/CinePoli/assets/137083225/8103a5de-47e2-42ad-b277-5a0755662173)
+
 Pantalla Administrador
 -
 ![image](https://github.com/WesitosFsa/CinePoli/assets/137083225/5ebdb38b-5fe7-4d11-ac15-5f169bc890d7)
@@ -78,11 +83,6 @@ Explicacion Pantalla administrador habra 3 botones
 
 .-Genera un estadistica recojiendo los datos de factura ve que peliculas venden mas y en que horarios se venden mas boletos
 -
-
-.-nos imprime una factura en la que decidimos si queremos pagar o no
--
-![Captura de pantalla 2024-03-04 131210](https://github.com/WesitosFsa/CinePoli/assets/137083225/5ea32cd5-4350-4a84-9dde-0cce3b8acb47)
-![Captura de pantalla 2024-03-04 131223](https://github.com/WesitosFsa/CinePoli/assets/137083225/8103a5de-47e2-42ad-b277-5a0755662173)
 
 Ejecutar el programa: Creamos un artifact un .jar tienes que tener jdk instalado y correra el programa el .jar 
 -
