@@ -1,54 +1,74 @@
-import javax.swing.*;
+/*import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class salas extends JFrame{
-    JPanel panel1;
-    private JTextField textFieldIDPELICULA;
-    private JTextField textFieldASIENTOS;
+public class salas extends JFrame {
+    private JPanel panel1;
     private JButton INHABILITARButton;
-    private JLabel IDPELICULA;
-    private JLabel ASIENTOS;
-    private JTextField mostrarPelicula;
-    private JTextField mostrarHorario;
-    private JTextField mostrarAsientos;
-    private JLabel asientos;
-    private JLabel horario;
-    private JLabel nombrePeli;
     private JButton ingresarButton;
     private JButton verInformacionButton;
     private JButton menuButton;
+    private JLabel NUMSALA;
+    private JLabel IDPELICULA;
+    private JLabel ASIENTOS;
+    private JLabel asientos;
+    private JLabel horario;
+    private JLabel nombrePeli;
     private JLabel HORARIO;
-    private JTextField textFieldHORARIO;
     private JLabel Sala;
-    private JTextField SALA;
+    private JLabel DIA;
+    private JLabel Dia;
     private JLabel NumSala;
-    private JTextField NUMSALAS;
+    private JLabel numSala;
+    private JTextField textFieldNUMSALAS;
+    private JTextField textFieldDIA;
+    private JTextField textFieldIDPELICULA;
+    private JTextField textFieldHORARIO;
+    private JTextField mostrarPelicula;
+    private JTextField mostrarHorario;
+    private JTextField mostrarNumsala;
+    private JTextField mostrarDia;
+    private JTextField numsala;
 
     private List<verpelis.Pelicula> listaPeliculas;
-    private Map<String, Salas> salas;
-    private ADMIN salasScreen;
+    private Map<Integer, SalasInfo> salas; // Se cambió la clave del mapa a Integer
+    private Connection conexion;
 
-    // Constructor de la clase salas
     public salas() {
-        /*Configuracion dela pantalla Salas*/
+        //Configuracion de la pantalla Salas
         setContentPane(panel1);
-        setSize(800,500);
+        setSize(800, 500);
         setResizable(false);
         setLocationRelativeTo(null);
         setUndecorated(true);
         setVisible(true);
 
-        this.salasScreen = salasScreen;
-        this.listaPeliculas = listaPeliculas;
-        salas = new HashMap<String, Salas>();
+        // Inicialización de variables
+        salas = new HashMap<>();
+        establecerConexion();
 
         // Configuración de ActionListener para el botón "Ingresar"
         ingresarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int idPelicula = Integer.parseInt(textFieldIDPELICULA.getText());
+                String horario = textFieldHORARIO.getText();
+                int numSala = Integer.parseInt(textFieldNUMSALAS.getText());
+                String dia = textFieldDIA.getText();
 
+                // Agregar la sala al mapa de salas
+                SalasInfo nuevaSala = new SalasInfo(idPelicula, horario, numSala, dia);
+                salas.put(numSala, nuevaSala); // Se cambió la clave a numSala
+
+                // Limpia los campos después de ingresar la información
+                limpiarCampos();
             }
         });
 
@@ -56,7 +76,18 @@ public class salas extends JFrame{
         verInformacionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int numSala = Integer.parseInt(numsala.getText()); // Se obtiene el número de sala desde el campo numsala
 
+                // Verificar si la sala con el número de sala existe en el mapa de salas
+                if (salas.containsKey(numSala)) {
+                    SalasInfo sala = salas.get(numSala);
+                    mostrarPelicula.setText(obtenerNombrePelicula(sala.getIdPelicula()));
+                    mostrarHorario.setText(sala.getHorario());
+                    mostrarNumsala.setText(String.valueOf(sala.getNumSala()));
+                    mostrarDia.setText(sala.getDia());
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontró información para la sala con número: " + numSala, "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
@@ -64,7 +95,7 @@ public class salas extends JFrame{
         INHABILITARButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                // Implementar la lógica para inhabilitar una sala
             }
         });
 
@@ -72,38 +103,105 @@ public class salas extends JFrame{
         menuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ADMIN Admin = new ADMIN();
-                Admin.setVisible(true);
+                ADMIN admin = new ADMIN();
+                admin.setVisible(true);
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(panel1);
                 frame.dispose();
             }
         });
-    }
-    // Método para CRUD
-    // estos metodos deben de estar conectada a la bd
 
-    // Método para actualizar la lista de películas desde otras partes de la aplicación
-    public void actualizarListaPeliculas(List<verpelis.Pelicula> listaPeliculas) {
-        this.listaPeliculas = listaPeliculas;
-        // Puedes realizar acciones adicionales aquí si es necesario
-        // Por ejemplo, actualizar la información en la interfaz gráfica
+        // Cargar las salas desde la base de datos al iniciar la aplicación
+        cargarSalasDesdeBD();
+    }
+
+    private void establecerConexion() {
+        try {
+            // Establecer la conexión con la base de datos
+            conexion = Main.establecerConexion();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void limpiarCampos() {
+        textFieldIDPELICULA.setText("");
+        textFieldHORARIO.setText("");
+        textFieldNUMSALAS.setText("");
+        textFieldDIA.setText("");
+    }
+
+    // Método para obtener el nombre de la película según el ID
+    private String obtenerNombrePelicula(int idPelicula) {
+        // Buscar la película en la lista de películas
+        for (verpelis.Pelicula pelicula : listaPeliculas) {
+            if (pelicula.getId() == idPelicula) {
+                return pelicula.getNombre();
+            }
+        }
+        return "Nombre no encontrado";
+    }
+
+    // Método para cargar las salas desde la base de datos al iniciar la aplicación
+    private void cargarSalasDesdeBD() {
+        try {
+            String query = "SELECT * FROM Sala";
+            PreparedStatement statement = conexion.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int idPelicula = resultSet.getInt("ID_Pelicula");
+                String horario = resultSet.getString("Horario");
+                int numSala = resultSet.getInt("Num_Sala");
+                String dia = resultSet.getString("Dia");
+
+                // Agregar la sala al mapa de salas
+                SalasInfo sala = new SalasInfo(idPelicula, horario, numSala, dia);
+                salas.put(numSala, sala);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al cargar las salas desde la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     // Clase interna que representa una sala
-    class Salas {
-        private String idPelicula;
+    class SalasInfo {
+        private int idPelicula;
         private String horario;
-        private String asientos;
+        private int numSala;
+        private String dia;
 
         // Constructor de la clase Salas
-        public Salas(String idPelicula, String horario, String asientos) {
+        public SalasInfo(int idPelicula, String horario, int numSala, String dia) {
             this.idPelicula = idPelicula;
             this.horario = horario;
-            this.asientos = asientos;
+            this.numSala = numSala;
+            this.dia = dia;
+
+            // Insertar información en la base de datos
+            insertarSalaEnBD();
+        }
+
+        // Método para insertar la información de la sala en la base de datos
+        private void insertarSalaEnBD() {
+            try {
+                String query = "INSERT INTO Sala (ID_Pelicula, Horario_Sala, Num_Sala, Dia) VALUES (?, ?, ?, ?)";
+                PreparedStatement statement = conexion.prepareStatement(query);
+                statement.setInt(1, idPelicula);
+                statement.setString(2, horario);
+                statement.setInt(3, numSala);
+                statement.setString(4, dia);
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error al insertar la sala en la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
 
         // Métodos getter para obtener información de la sala
-        public String getIdPelicula() {
+        public int getIdPelicula() {
             return idPelicula;
         }
 
@@ -111,16 +209,245 @@ public class salas extends JFrame{
             return horario;
         }
 
-        public String getAsientos() {
-            return asientos;
+        public int getNumSala() {
+            return numSala;
+        }
+
+        public String getDia() {
+            return dia;
         }
     }
+}*/
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class salas extends JFrame {
+    private JPanel panel1;
+    private JButton ingresarButton;
+    private JButton verInformacionButton;
+    private JButton menuButton;
+    private JLabel NUMSALA;
+    private JLabel IDPELICULA;
+    private JLabel ASIENTOS;
+    private JLabel asientos;
+    private JLabel horario;
+    private JLabel nombrePeli;
+    private JLabel HORARIO;
+    private JLabel Sala;
+    private JLabel DIA;
+    private JLabel Dia;
+    private JLabel NumSala;
+    private JLabel numSala;
+    private JTextField textFieldNUMSALAS;
+    private JTextField textFieldDIA;
+    private JTextField textFieldIDPELICULA;
+    private JTextField textFieldHORARIO;
+    private JTextField mostrarPelicula;
+    private JTextField mostrarHorario;
+    private JTextField mostrarNumsala;
+    private JTextField mostrarDia;
+    private JTextField numsala;
+
+    private List<verpelis.Pelicula> listaPeliculas;
+    private Map<Integer, SalasInfo> salas;
+
+    private Connection conexion;
+
+    public salas() {
+        /*Configuracion de la pantalla Salas*/
+        setContentPane(panel1);
+        setSize(800, 500);
+        setResizable(false);
+        setLocationRelativeTo(null);
+        setUndecorated(true);
+        setVisible(true);
+
+        // Inicialización de variables
+        salas = new HashMap<>();
+        establecerConexion();
+
+// Configuración de ActionListener para el botón "Ingresar"
+        ingresarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    int idPelicula = Integer.parseInt(textFieldIDPELICULA.getText());
+                    String horario = textFieldHORARIO.getText();
+                    int numSala = Integer.parseInt(textFieldNUMSALAS.getText());
+                    String dia = textFieldDIA.getText();
+
+                    // Verificar si la sala ya existe en el mapa de salas
+                    if (salas.containsKey(numSala)) {
+                        // Si la sala ya existe, actualizar los datos en lugar de insertar una nueva fila
+                        SalasInfo salaExistente = salas.get(numSala);
+                        salaExistente.actualizarInfo(idPelicula, horario, dia);
+                        // También podrías actualizar la información en la base de datos aquí
+                    } else {
+                        // Si la sala no existe, agregarla al mapa de salas y a la base de datos
+                        SalasInfo nuevaSala = new SalasInfo(idPelicula, horario, numSala, dia);
+                        salas.put(numSala, nuevaSala);
+                        // Insertar información en la base de datos
+                        nuevaSala.insertarSalaEnBD();
+                    }
+
+                    // Limpia los campos después de ingresar la información
+                    limpiarCampos();
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Ingrese números válidos para la ID de la película y el número de sala.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        // Configuración de ActionListener para el botón "Ver Información"
+        verInformacionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    int idPelicula = Integer.parseInt(textFieldIDPELICULA.getText()); // Se obtiene la ID de la película desde el campo textFieldIDPELICULA
+
+                    // Verificar si la sala con la película existe en el mapa de salas
+                    if (salas.containsKey(idPelicula)) {
+                        SalasInfo sala = salas.get(idPelicula);
+                        sala.actualizarInfo(sala.getIdPelicula(), sala.getHorario(), sala.getDia());
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se encontró información para la película con ID: " + idPelicula, "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Ingrese un número válido para la ID de la película.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+
+        // Configuración de ActionListener para el botón "Menu"
+        menuButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ADMIN admin = new ADMIN();
+                admin.setVisible(true);
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(panel1);
+                frame.dispose();
+            }
+        });
+
+        // Cargar las salas desde la base de datos al iniciar la aplicación
+        cargarSalasDesdeBD();
+    }
+
+    private void establecerConexion() {
+        try {
+            // Establecer la conexión con la base de datos
+            conexion = Main.establecerConexion();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void limpiarCampos() {
+        textFieldIDPELICULA.setText("");
+        textFieldHORARIO.setText("");
+        textFieldNUMSALAS.setText("");
+        textFieldDIA.setText("");
+    }
+
+    // Método para obtener el nombre de la película según el ID
+    private String obtenerNombrePelicula(int idPelicula) {
+        // Buscar la película en la lista de películas
+        for (verpelis.Pelicula pelicula : listaPeliculas) {
+            if (pelicula.getId() == idPelicula) {
+                return pelicula.getNombre();
+            }
+        }
+        return "Nombre no encontrado";
+    }
+
+    // Método para cargar las salas desde la base de datos al iniciar la aplicación
+    private void cargarSalasDesdeBD() {
+        try {
+            String query = "SELECT * FROM sala";
+            PreparedStatement statement = conexion.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int idPelicula = resultSet.getInt("id_pelicula");
+                String horario = resultSet.getString("Horario_Sala");
+                int numSala = resultSet.getInt("Num_Sala");
+                String dia = resultSet.getString("Dia");
+
+                // Agregar la sala al mapa de salas
+                SalasInfo sala = new SalasInfo(idPelicula, horario, numSala, dia);
+                salas.put(numSala, sala);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al cargar las salas desde la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    // Clase interna que representa una sala
+    class SalasInfo {
+        private int idPelicula;
+        private String horario;
+        private int numSala;
+        private String dia;
+
+        // Constructor de la clase Salas
+// Constructor de la clase Salas
+        public SalasInfo(int idPelicula, String horario, int numSala, String dia) {
+            this.idPelicula = idPelicula;
+            this.horario = horario;
+            this.numSala = numSala;
+            this.dia = dia;
+        }
+
+
+        // Método para insertar la información de la sala en la base de datos
+        private void insertarSalaEnBD() {
+            try {
+                String query = "INSERT INTO sala (id_pelicula, Horario_Sala, Num_Sala, Dia) VALUES (?, ?, ?, ?)";
+                PreparedStatement statement = conexion.prepareStatement(query);
+                statement.setInt(1, idPelicula);
+                statement.setString(2, horario);
+                statement.setInt(3, numSala);
+                statement.setString(4, dia);
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error al insertar la sala en la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        // Métodos getter para obtener información de la sala
+        public int getIdPelicula() {
+            return idPelicula;
+        }
+
+        public String getHorario() {
+            return horario;
+        }
+
+        public int getNumSala() {
+            return numSala;
+        }
+
+        public String getDia() {
+            return dia;
+        }
+
+        public void actualizarInfo(int idPelicula, String horario, String dia) {
+            mostrarPelicula.setText(obtenerNombrePelicula(idPelicula));
+            mostrarHorario.setText(horario);
+            mostrarDia.setText(dia);
+        }
+
+    }
 }
-
-
-
-
-
-
-
-
