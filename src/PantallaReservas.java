@@ -54,6 +54,8 @@ public class PantallaReservas extends JFrame {
         NumSala.setText(sala);
         String[] asientosReservados = Reservas.asientospublicos;
         StringBuilder textoAsientos = new StringBuilder();
+
+
         for (String asiento : asientosReservados) {
             if (asiento != null) {
                 textoAsientos.append(asiento).append(", "); // Puedes cambiar la coma por cualquier otro separador si prefieres
@@ -67,6 +69,8 @@ public class PantallaReservas extends JFrame {
         NumerodeAsiento.setText(textoFinal);
         String dinerito = Reservas.Dineropublico;
         Costo.setText(dinerito);
+        int saldo = obtenersaldo(name);
+        int resta = Integer.parseInt(dinerito);
 
 
 
@@ -214,6 +218,45 @@ public class PantallaReservas extends JFrame {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al obtener el telefono desde la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             return null;
+        } finally {
+            // Cerrar recursos
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+    private int obtenersaldo(String nombreusuario) {
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
+        try {
+            // Preparar la consulta SQL con un filtro por nombre de usuario
+            String sql = "SELECT saldo FROM clientes WHERE nom_usuario = ?";
+            statement = conexion.prepareStatement(sql);
+            statement.setString(1, nombreusuario); // Establecer el nombre de usuario como parámetro
+
+            // Ejecutar la consulta y obtener el resultado
+            resultSet = statement.executeQuery();
+
+            // Verificar si hay resultados
+            if (resultSet.next()) {
+                // Obtener el saldo de la columna 'saldo' como un entero
+                int saldo = resultSet.getInt("saldo");
+                return saldo;
+            } else {
+                // Si no hay resultados, devolver 0 indicando que el usuario no fue encontrado
+                return 0;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al obtener saldo.", "Error", JOptionPane.ERROR_MESSAGE);
+            return 0;
         } finally {
             // Cerrar recursos
             try {
