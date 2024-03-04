@@ -88,12 +88,12 @@ public class PantallaReservas extends JFrame {
                     if (respuesta == JOptionPane.YES_OPTION) {
                         // Imprimir el PDF si se confirma el pago
                         try {
-                            if (saldresta < pago){
-                                JOptionPane.showConfirmDialog(null,"El saldo no es suficiente");
-                            }else{
+                            if (saldresta > pago){
                                 actualizarSaldo(saldo, name);
                                 generarPDF(name,correo,telefono,namepeli,generopeli,horario,sala,textoFinal,dinerito);
                                 JOptionPane.showMessageDialog(null, "PDF generado exitosamente.");
+                            }else{
+                                JOptionPane.showConfirmDialog(null,"El saldo no es suficiente");
                             }
 
                         } catch (Exception ex) {
