@@ -83,6 +83,14 @@ Explicacion Pantalla administrador habra 3 botones
 ![Captura de pantalla 2024-03-04 131210](https://github.com/WesitosFsa/CinePoli/assets/137083225/5ea32cd5-4350-4a84-9dde-0cce3b8acb47)
 ![Captura de pantalla 2024-03-04 131223](https://github.com/WesitosFsa/CinePoli/assets/137083225/8103a5de-47e2-42ad-b277-5a0755662173)
 
+Ejecutar el programa: Creamos un artifact un .jar tienes que tener jdk instalado y correra el programa el .jar 
+-
+![image](https://github.com/WesitosFsa/CinePoli/assets/137083225/6c62c55e-1fe4-47cf-981a-7398363283a2)
+![image](https://github.com/WesitosFsa/CinePoli/assets/137083225/9927efb5-6ea0-4bc1-92f3-be8ded495e00)
+
+Ejecuta el programa con la conexion de bd en la nube
+-
+
 --------------------------------------
 Nombre de los integrantes de grupo
 -
