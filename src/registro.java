@@ -11,7 +11,13 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+/**
+ * La clase `registro` representa la interfaz de registro de usuarios.
+ * Extiende JFrame y contiene campos de entrada y botones para el registro.
+ */
 public class registro extends JFrame {
+
+    // Componentes de la interfaz gráfica
     private JPanel panel1;
     private JTextField correo;
     private JTextField usuario;
@@ -26,7 +32,12 @@ public class registro extends JFrame {
     private JTextField Saldo;
     private SimpleDateFormat dateFormat;
 
+    /**
+     * Constructor de la clase `registro`. Inicializa la interfaz y agrega
+     * ActionListener a los botones.
+     */
     public registro() {
+        // Configuración de la interfaz
         setContentPane(panel1);
         setSize(800, 500);
         setResizable(false);
@@ -34,6 +45,7 @@ public class registro extends JFrame {
         setUndecorated(true);
         setVisible(true);
 
+        // ActionListener para el botón "Inicio"
         inicioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -44,6 +56,7 @@ public class registro extends JFrame {
             }
         });
 
+        // ActionListener para el botón "Registrarse"
         registrarseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -60,6 +73,7 @@ public class registro extends JFrame {
                     String rol = "1";
                     String Saldo_trajeta = Saldo.getText();
 
+                    // Validar campos no vacíos
                     if (camposNoVacios()) {
                         // Validar el formato del año de nacimiento
                         boolean formatoValido = validarFormatoAnioNacimiento(AnioNacimiento);
@@ -80,6 +94,7 @@ public class registro extends JFrame {
                             Main main = new Main();
                             Connection conexion = main.establecerConexion();
 
+                            // Consulta SQL para la inserción
                             String query = "INSERT INTO clientes (idcliente, nom_usuario, contra_usuario, correo, telf_usuario, Año_nacimiento, num_tarj, id_rol, cedula, saldo) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
                             // Preparar la declaración
@@ -92,8 +107,6 @@ public class registro extends JFrame {
                                 preparedStatement.setInt(5, telefonoUsuario);
                                 preparedStatement.setString(6, AnioNacimiento);
                                 preparedStatement.setInt(7, Integer.parseInt(numtarjeta));
-                                preparedStatement.setString(6, AnioNacimiento);
-                                preparedStatement.setInt(7, Integer.parseInt(numtarjeta));
                                 preparedStatement.setString(8, rol);
                                 preparedStatement.setString(9, Cedula);
                                 preparedStatement.setInt(10, Integer.parseInt(Saldo_trajeta));
@@ -101,12 +114,12 @@ public class registro extends JFrame {
                                 // Ejecutar la consulta
                                 preparedStatement.executeUpdate();
 
+                                // Mostrar mensaje de registro exitoso
                                 JOptionPane.showMessageDialog(null, "Registro exitoso");
                                 login login = new login();
                                 login.setVisible(true);
                                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(panel1);
                                 frame.dispose();
-
                             }
                         } catch (SQLException ex) {
                             ex.printStackTrace();
@@ -123,11 +136,22 @@ public class registro extends JFrame {
         });
     }
 
+    /**
+     * Verifica si los campos de entrada no están vacíos.
+     *
+     * @return `true` si todos los campos están completos, `false` si algún campo está vacío.
+     */
     private boolean camposNoVacios() {
         return !usuario.getText().isEmpty() && !contra.getText().isEmpty() && !correo.getText().isEmpty()
                 && !telefono.getText().isEmpty() && !Año_Nacimiento.getText().isEmpty();
     }
 
+    /**
+     * Verifica el formato del año de nacimiento.
+     *
+     * @param anioNacimiento Año de nacimiento a validar.
+     * @return `true` si el formato es válido, `false` si no cumple con el formato esperado.
+     */
     private boolean validarFormatoAnioNacimiento(String anioNacimiento) {
         for (char c : anioNacimiento.toCharArray()) {
             if (!Character.isDigit(c)) {
@@ -137,9 +161,20 @@ public class registro extends JFrame {
         return anioNacimiento.length() == 4;
     }
 
+    /**
+     * Caracteres permitidos para generar el ID.
+     */
     private static final String CARACTERES_PERMITIDOS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    /**
+     * Longitud del ID generado.
+     */
     private static final int LONGITUD_ID = 7;
 
+    /**
+     * Genera un ID aleatorio utilizando caracteres permitidos.
+     *
+     * @return ID aleatorio generado.
+     */
     public static String generarID() {
         SecureRandom random = new SecureRandom();
         StringBuilder sb = new StringBuilder(LONGITUD_ID);
